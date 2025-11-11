@@ -1,0 +1,14 @@
+<header class="bg-gray-600 text-white fixed top-0 left-0 w-full shadow-md z-50">
+  <div class=" px-2 py-3 flex justify-between items-center">
+    <div class="text-lg font-semibold">
+      <%= link_to "MiApp", root_path, class: "hover:text-gray-300 transition" %>
+    </div>
+    <nav class="space-x-4">
+      <%= link_to "Inicio", root_path, class: "hover:text-gray-300" %>
+      
+      <%= link_to "Cerrar sesión", destroy_user_session_path, 
+          data: { turbo_method: :delete }, 
+          class: "hover:text-red-400" %>
+    </nav>
+  </div>
+</header>
