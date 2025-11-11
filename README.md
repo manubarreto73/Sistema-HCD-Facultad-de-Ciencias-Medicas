@@ -3,9 +3,9 @@
 ## ¿Como arranco el proyecto?
 
 - Tener instalado Ruby 3.2.2
-- Ejecutar `bundle install`
+- Ejecutar `bundle install` para instalar las dependencias
 - Ejecutar `rails db:create db:migrate` para la creación de la base de datos y las migraciones.
-- Ejecutar `bin/dev` para levantar el servidor.
+- Ejecutar `bin/dev` en una consola para levantar el servidor.
 
 ## Frameworks más relevantes
 - Rails
