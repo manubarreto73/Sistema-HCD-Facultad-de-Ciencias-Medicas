@@ -10,18 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_12_194007) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_15_190153) do
   create_table "destinations", force: :cascade do |t|
     t.string "name", null: false
     t.boolean "is_commission", default: false, null: false
+    t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_destinations_on_name", unique: true
   end
 
+  create_table "expedients", force: :cascade do |t|
+    t.string "file_number", null: false
+    t.string "responsible", null: false
+    t.string "detail", null: false
+    t.string "opinion"
+    t.datetime "creation_date"
+    t.integer "file_status", default: 0
+    t.integer "destination_id", null: false
+    t.integer "subject_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["destination_id"], name: "index_expedients_on_destination_id"
+    t.index ["subject_id"], name: "index_expedients_on_subject_id"
+  end
+
   create_table "subjects", force: :cascade do |t|
     t.string "name", null: false
     t.integer "priority", default: 0, null: false
+    t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_subjects_on_name", unique: true
@@ -39,4 +56,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_12_194007) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  add_foreign_key "expedients", "destinations"
+  add_foreign_key "expedients", "subjects"
 end

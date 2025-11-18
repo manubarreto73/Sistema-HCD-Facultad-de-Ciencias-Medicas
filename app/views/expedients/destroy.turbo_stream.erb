@@ -1,7 +1,7 @@
 <%= turbo_stream.update "modal", "" %>
 
-<%= turbo_stream.update "destinations_table" do %>
-  <%= render "table", destinations: @destinations %>
+<%= turbo_stream.update "expedients_table" do %>
+  <%= render "table", expedients: @expedients %>
 <% end %>
 
 <%= turbo_stream.update "flash-container", partial: "shared/flash" %>

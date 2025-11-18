@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+.field_with_errors input {
+  @apply border-red-500 focus:border-red-600 ring-red-200;
+}
+
+.modal-container {
+  @apply bg-white rounded-2xl shadow-lg w-full max-w-md p-6 relative;
+}
+
+.index-container {
+  @apply min-h-screen bg-gray-100 flex flex-col items-center px-4 pt-10;
+}
+
+.index-background {
+  @apply bg-white w-full rounded-3xl shadow-lg overflow-hidden;
+}
+
+.index-title-container {
+  @apply px-6 py-4 border-b border-gray-200 flex justify-between items-center;
+}
+
+.modal-title {
+  @apply text-xl font-semibold mb-4 text-gray-800;
+}

@@ -7,15 +7,15 @@
     </tr>
   </thead>
 
-  <tbody id="destinations_index" class="divide-y divide-gray-100 text-gray-700">
-    <% @destinations.each do |destination| %>
-      <%= render 'destination', destination: destination %>
+  <tbody class="divide-y divide-gray-100 text-gray-700">
+    <% destinations.each do |destination| %>
+      <%= render "destination", destination: destination %>
+    <% end %>
+
+    <% if destinations.empty? %>
+      <tr>
+        <td class="p-6 font-medium">No hay destinos cargados aún</td>
+      </tr>
     <% end %>
   </tbody>
 </table>
-
-<% if @destinations.empty? %>
-  <div class="p-6 text-center text-gray-500">
-    No hay destinos cargados todavía.
-  </div>
-<% end %>

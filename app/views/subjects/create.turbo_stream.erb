@@ -3,3 +3,6 @@
 <% end %>
 
 <%= turbo_stream.update "modal", "" %>
+<% puts 'hola' %>
+<%= turbo_stream.replace("flash_container", partial: "shared/flash") %>
+<% flash.discard %>

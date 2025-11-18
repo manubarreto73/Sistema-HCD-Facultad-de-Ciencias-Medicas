@@ -7,15 +7,15 @@
     </tr>
   </thead>
 
-  <tbody class="divide-y divide-gray-100 text-gray-700">
-    <% @subjects.each do |subject| %>
-      <%= render 'subject', subject: subject %>
+  <tbody id="subjects_index" class="divide-y divide-gray-100 text-gray-700">
+     <% if @subjects.empty? %>
+      <tr>
+        <td class=" p-6 font-medium">No hay temas cargados aún</td>
+      </tr>
+    <% else %>
+      <% @subjects.each do |subject| %>
+        <%= render 'subject', subject: subject %>
+      <% end %>
     <% end %>
   </tbody>
 </table>
-
-<% if @subjects.empty? %>
-  <div class="p-6 text-center text-gray-500">
-    No hay temas cargados todavía.
-  </div>
-<% end %>

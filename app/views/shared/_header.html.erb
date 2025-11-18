@@ -1,9 +1,10 @@
 <header class="bg-gray-600 text-white fixed top-0 left-0 w-full shadow-md z-50">
   <div class=" px-2 py-3 flex justify-between items-center">
     <div class="text-lg font-semibold">
-      <%= link_to "MiApp", root_path, class: "hover:text-gray-300 transition" %>
+      <%= link_to "HCD Facultad de Ciencias Médicas", root_path, class: "hover:text-gray-300 transition" %>
     </div>
     <nav class="space-x-4">
+      <%= link_to 'Expedientes', expedients_path, class: "hover:text-gray-300" %>
       <%= link_to 'Destinos', destinations_path, class: "hover:text-gray-300" %>
       <%= link_to 'Temas', subjects_path, class: "hover:text-gray-300" %>
       <%= link_to "Inicio", root_path, class: "hover:text-gray-300" %>

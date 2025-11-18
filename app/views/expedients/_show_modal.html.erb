@@ -1,0 +1,74 @@
+<h2 class="text-2xl font-semibold mb-6">Expediente Nº <%= expedient.file_number %></h2>
+
+<div class="grid grid-cols-2 gap-6">
+
+  <!-- Número de expediente -->
+  <div>
+    <label class="text-sm font-semibold text-gray-600">N° de expediente</label>
+    <p class="mt-1 bg-gray-100 rounded px-3 py-2">
+      <%= expedient.file_number %>
+    </p>
+  </div>
+
+  <!-- Responsable -->
+  <div>
+    <label class="text-sm font-semibold text-gray-600">Responsable</label>
+    <p class="mt-1 bg-gray-100 rounded px-3 py-2">
+      <%= expedient.responsible %>
+    </p>
+  </div>
+
+  <!-- Detalle -->
+  <div class="col-span-2">
+    <label class="text-sm font-semibold text-gray-600">Detalle</label>
+    <p class="mt-1 bg-gray-100 rounded px-3 py-2">
+      <%= expedient.detail %>
+    </p>
+  </div>
+
+  <!-- Opinión -->
+  <div class="col-span-2">
+    <label class="text-sm font-semibold text-gray-600">Opinión</label>
+    <p class="mt-1 bg-gray-100 rounded px-3 py-2 whitespace-pre-line">
+      <%= expedient.opinion.presence || "—" %>
+    </p>
+  </div>
+
+  <!-- Fecha -->
+  <div>
+    <label class="text-sm font-semibold text-gray-600">Fecha de creación</label>
+    <p class="mt-1 bg-gray-100 rounded px-3 py-2">
+      <%= expedient.creation_date&.strftime("%d/%m/%Y") %>
+    </p>
+  </div>
+
+  <!-- Estado -->
+  <div>
+    <label class="text-sm font-semibold text-gray-600">Estado</label>
+    <p class="mt-1 bg-gray-100 rounded px-3 py-2 capitalize">
+      <%= expedient.file_status.humanize %>
+    </p>
+  </div>
+
+  <!-- Destination -->
+  <div>
+    <label class="text-sm font-semibold text-gray-600">Destino</label>
+    <p class="mt-1 bg-gray-100 rounded px-3 py-2">
+      <%= expedient.destination.name %>
+    </p>
+  </div>
+
+  <!-- Subject -->
+  <div>
+    <label class="text-sm font-semibold text-gray-600">Asunto</label>
+    <p class="mt-1 bg-gray-100 rounded px-3 py-2">
+      <%= expedient.subject.name %>
+    </p>
+  </div>
+
+</div>
+
+<div class="flex justify-end mt-8">
+  <%= link_to "Cerrar", "#", data: { action: "click->modal#close" },
+      class: "bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition font-medium" %>
+</div>

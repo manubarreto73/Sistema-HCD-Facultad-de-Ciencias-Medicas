@@ -1,2 +1,14 @@
 <%= turbo_stream.remove @subject %>
 <%= turbo_stream.update "modal_frame", "" %>
+<%= turbo_stream.update "subjects" do %>
+  <%= render "table", subjects: @subjects %>
+<% end %>
+<% if @show_empty %>
+  <%= turbo_stream.append "subjects_index" do %>
+    <tr>
+      <td class=" p-6 font-medium">No hay temas cargados aún</td>
+    </tr>
+  <% end %>
+<% end %>
+<%= turbo_stream.update("flash-container", partial: "shared/flash") %>
+<% flash.discard %>

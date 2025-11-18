@@ -28,8 +28,12 @@
     <% if user_signed_in? %>
       <%= render 'shared/header' %>
     <% end %>
-    <div class="<%= 'pt-12' if user_signed_in? %> ">
-    <%= yield %>   
+
+    <div class="<%= 'pt-12' if user_signed_in? %>">
+      <div id="flash-container">   
+        <%= render "shared/flash" %> 
+      </div> 
+      <%= yield %>   
     </div>
   </body>
 </html>

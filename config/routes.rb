@@ -15,4 +15,5 @@ Rails.application.routes.draw do
 
   resources :subjects
   resources :destinations
+  resources :expedients
 end

@@ -1,0 +1,17 @@
+<div class="index-container">
+  <div class="index-background">
+    <div class="index-title-container">
+      <h2 class="text-2xl font-semibold text-gray-800">Expedientes</h2>
+      <%= new_modal_button('Nuevo expediente', new_expedient_path) %>
+    </div>
+    <div class="flex space-x-2">
+      <%= tab_button(text: "No tratados", tab: "no_tratados", current_tab: @tab, path: expedients_path(tab: "no_tratados")) %>
+      <%= tab_button(text: "Tratados", tab: "tratados", current_tab: @tab, path: expedients_path(tab: "tratados")) %>
+    </div>
+    <%= turbo_frame_tag "expedients_table" do %>
+      <%= render "table", expedients: @expedients %>
+    <% end %>
+  </div>
+</div>
+
+<%= turbo_frame_tag "modal" %>
