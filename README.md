@@ -11,3 +11,7 @@
 - Rails
 - Tailwind (estilos)
 - Devise (autenticación)
+- Wicked PDF (PDFs)
+
+## UPDATE: 24/11
+- Ejecutar en la consola `rails db:seed` para llenar la base de datos (se puede hacer con el servidor corriendo en otra consola, es indistinto).
