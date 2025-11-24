@@ -4,6 +4,8 @@
 module ButtonHelper
   CLOSE_BUTTON_CLASS = 'bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition font-medium'
   NEW_BUTTON_CLASS   = 'bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition font-medium'
+  ACTIVE_TAB         = 'px-4 py-2 rounded-t-md text-sm font-semibold transition bg-gray-100 text-gray-900'
+  NON_ACTIVE_TAB     = 'px-4 py-2 rounded-t-md text-sm font-semibold transition bg-gray-300 text-gray-600 hover:bg-gray-200'
 
   def new_modal_button(title, path)
     link_to title,
@@ -17,19 +19,30 @@ module ButtonHelper
                              class: CLOSE_BUTTON_CLASS
   end
 
-  def tab_button(text:, tab:, current_tab:, path:)
-    active = (tab == current_tab)
+  def tab_button(text:, count:, path:)
+    current_treated = params[:treated].to_s == 'true'
+    tab_treated     = path[:treated].to_s == 'true'
 
-    classes = [
-      'px-4', 'py-2',
-      'rounded-t-md',
-      'text-sm', 'font-semibold', 'text-gray-700',
-      'transition',
-      active ? 'bg-gray-100' : 'bg-gray-400 hover:bg-gray-300'
-    ].join(' ')
+    active = current_treated == tab_treated
+    classes = active ? ACTIVE_TAB : NON_ACTIVE_TAB
+
+    text = "#{text} (#{count})" if count.positive?
 
     link_to path, class: 'group' do
       content_tag(:div, text, class: classes)
     end
+  end
+
+  def download_pdf_button(path:)
+    link_to path, class: 'group' do
+      content_tag(:div, 'Descargar PDF', class: ACTIVE_TAB)
+    end
+  end
+
+  def sortable(column, label)
+    direction = (params[:sort] == column && params[:direction] == "asc") ? "desc" : "asc"
+
+    label = "#{label} ^" if direction == 'desc'
+    link_to label, request.query_parameters.merge(sort: column, direction: direction), class: "underline cursor-pointer"
   end
 end

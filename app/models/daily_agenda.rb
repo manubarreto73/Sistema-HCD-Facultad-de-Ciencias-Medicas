@@ -12,4 +12,8 @@ class DailyAgenda < ApplicationRecord
   def date_name
     "#{I18n.l(date, format: '%a')} #{date.day}"
   end
+
+  def treated?
+    expedients.all? { |exp| exp.file_status == 'treated' }
+  end
 end

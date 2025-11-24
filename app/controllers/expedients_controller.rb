@@ -3,15 +3,14 @@ class ExpedientsController < ApplicationController
   PER_PAGE = 3
 
   def index
-    @tab = params[:tab] || 'no_tratados'
+    index_params = filter_params
+    @expedients = ExpedientsFilter.new(index_params).call
+
+    @treated_count = @expedients.treated.count
+    @no_treated_count = @expedients.no_treated.count
+    puts "Valor de sort_order #{sort_order}"
     @expedients =
-      if @tab == 'tratados'
-        Expedient.treated
-      elsif @tab == 'no_tratados'
-        Expedient.no_treated
-      else
-        Expedient.all
-      end
+      params[:treated].to_s == 'true' ? @expedients.treated.order(sort_order) : @expedients.no_treated.order(sort_order)
   end
 
   def new
@@ -30,7 +29,6 @@ class ExpedientsController < ApplicationController
 
   def create
     @expedient = Expedient.new(expedient_params)
-
     if @expedient.save
       @expedients = Expedient.all
 
@@ -94,6 +92,17 @@ class ExpedientsController < ApplicationController
     end
   end
 
+  def download_pdf
+    treated = params[:treated] == 'true'
+    @expedients = Expedient.where(treated: treated)
+    title = treated ? 'Expedientes tratados' : 'Expedientes no tratados'
+    respond_to do |format|
+      format.pdf do
+        render pdf: title, template: 'expedients/expedients_pdf'
+      end
+    end
+  end
+
   private
 
   def set_expedient
@@ -101,6 +110,19 @@ class ExpedientsController < ApplicationController
   end
 
   def expedient_params
-    params.require(:expedient).permit(:file_number, :responsible, :detail, :opinion, :creation_date,:destination_id, :subject_id )
+    p = params.require(:expedient).permit(:dependency, :file_digits, :file_year, :correspondence, :responsible, :detail, :opinion, :creation_date,:destination_id, :subject_id)
+    p[:file_number] = "#{p.delete(:dependency)}-#{p.delete(:file_digits)}/#{p.delete(:file_year)}-#{p.delete(:correspondence)}"
+
+    p
+  end
+
+  def filter_params
+    params.permit(:file_number, :subject_id, :destination_id, :from_date, :to_date, :treated, :sort, :direction)
+  end
+
+  def sort_order
+    column = params[:sort].presence || 'file_number'
+    direction = params[:direction].presence || 'asc'
+    "#{column} #{direction}"
   end
 end

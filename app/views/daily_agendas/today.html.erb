@@ -2,7 +2,7 @@
   <div class="index-background">
     <div class="index-title-container justify-between">
       <div class="w-2/3">
-        <h2 class="text-2xl font-semibold text-gray-800">Orden del día <%=  @daily_agenda.date %> (ID <%= @daily_agenda.id %>)</h2>
+        <h2 class="text-2xl font-semibold text-gray-800">Orden del día <%=  @daily_agenda.date %></h2>
       </div>
       <div data-controller="dropdown" class="relative inline-block text-left">
         <button
@@ -27,10 +27,10 @@
         
           <%= link_to 'Editar fecha', edit_daily_agenda_path(@daily_agenda), data: { turbo_frame: 'modal' }, class: 'hover:bg-gray-100 p-1' %>
 
-           <%= link_to 'Ver todas las ordenes', daily_agendas_path, class: 'hover:bg-gray-100 p-1' %>
+           <%= link_to 'Ver ordenes tratadas', daily_agendas_path, class: 'hover:bg-gray-100 p-1' %>
+           <%= link_to 'Descargar orden del día', download_pdf_daily_agenda_path(@daily_agenda, format: :pdf), class: 'hover:bg-gray-100 p-1' %>
         </div>
       </div>
-
     </div>
 
     <%= turbo_frame_tag "daily_agenda_expedients" do %>

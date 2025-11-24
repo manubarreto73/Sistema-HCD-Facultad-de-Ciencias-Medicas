@@ -149,6 +149,7 @@ GEM
     nokogiri (1.18.10-x86_64-linux-musl)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    ostruct (0.6.3)
     pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
@@ -254,6 +255,10 @@ GEM
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    wicked_pdf (2.8.2)
+      activesupport
+      ostruct
+    wkhtmltopdf-binary (0.12.6.10)
     zeitwerk (2.7.3)
 
 PLATFORMS
@@ -280,6 +285,8 @@ DEPENDENCIES
   tailwindcss-rails
   turbo-rails
   tzinfo-data
+  wicked_pdf
+  wkhtmltopdf-binary
 
 BUNDLED WITH
    2.7.2

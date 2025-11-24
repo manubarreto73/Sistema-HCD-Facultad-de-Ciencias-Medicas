@@ -1,5 +1,5 @@
 class DailyAgendasController < ApplicationController
-  before_action :set_daily_agenda, only: %i[edit update resolve show]
+  before_action :set_daily_agenda, only: %i[edit update resolve show download_pdf]
 
   def index
     @year  = params[:year]&.to_i || Date.today.year
@@ -13,7 +13,7 @@ class DailyAgendasController < ApplicationController
     @next_month = (date + 1.month).month
     @next_year  = (date + 1.month).year
 
-    @daily_agendas = DailyAgenda.where(date: date.beginning_of_month..date.end_of_month).index_by(&:date)
+    @daily_agendas = DailyAgenda.where(date: date.beginning_of_month..date.end_of_month).select(&:treated?).index_by(&:date)
     @days_agenda = build_calendar(date)
   end
 
@@ -55,8 +55,17 @@ class DailyAgendasController < ApplicationController
     @daily_agenda = DailyAgenda.find(params[:id])
     @expedients = Expedient.where(id: params[:expedient_ids])
     @daily_agenda.expedients << @expedients
-
+    @expedients.update_all(daily_agenda_id: @daily_agenda.id)
     redirect_to today_daily_agendas_path
+  end
+
+  def download_pdf
+    title = "Orden del día #{@daily_agenda.date}"
+    respond_to do |format|
+      format.pdf do
+        render pdf: title, template: 'daily_agendas/daily_agenda_pdf'
+      end
+    end
   end
 
   def update_params

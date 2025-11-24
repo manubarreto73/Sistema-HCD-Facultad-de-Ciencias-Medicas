@@ -1,18 +1,38 @@
-<div class="bg-white rounded-xl shadow-lg p-8 w-full max-w-4xl">
-  <%= form_with(model: expedient, class: "space-y-6") do |f| %>
-    <h2 class="text-2xl font-semibold text-gray-700 border-b pb-3">
-      <%= expedient.new_record? ? "Nuevo Expediente" : "Editar Expediente" %>
+<div class="bg-white rounded-xl shadow-lg p-6 w-full max-w-4xl max-h-[85vh] overflow-y-auto">
+  <%= form_with(model: expedient, class: "space-y-4") do |f| %>
+    <h2 class="text-2xl font-semibold text-gray-700 border-b border-gray-200">
+      <%= expedient.new_record? ? "Nuevo expediente" : "Editar Expediente" %>
     </h2>
-
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="flex flex-col">
+        <div>
+          <%= f.label :file_number, "Número de expediente", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        </div>
+        <div class="flex gap-2 items-end">
+          <div>
+            <%= f.text_field :dependency, maxlength: 4, class: "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500" %>
+          </div>
+          <span class="pb-2">-</span>
+          <div>
+            <%= f.text_field :file_digits, maxlength: 8, class: "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500" %>
+          </div>
+          <span class="pb-2">/</span>
+          <div>
+            <%= f.text_field :file_year, maxlength: 4, class: "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500" %>
+          </div>
+          <span class="pb-2">-</span>
 
-      <div>
-        <%= f.label :file_number, "Número de expediente", class: "block text-sm font-medium text-gray-700 mb-1" %>
-        <%= f.text_field :file_number,
-              class: "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500" %>
-      </div>
-
-      <!-- Responsable -->
+          <div>
+            <%= f.text_field :correspondence, maxlength: 3, class: "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500" %>
+          </div>
+        </div>
+        <% if expedient.errors[:file_number].any? %>
+          <div data-controller="form-flash"
+              class="text-xs p-1 text-red-600">
+            <%= expedient.errors[:file_number].first %>
+          </div>
+        <% end %>
+       </div>
       <div>
         <%= f.label :responsible, "Responsable", class: "block text-sm font-medium text-gray-700 mb-1" %>
         <%= f.text_field :responsible,
@@ -35,12 +55,6 @@
               class: "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500" %>
       </div>
 
-      <!-- Fecha de creación -->
-      <div>
-        <%= f.label :creation_date, "Fecha de creación", class: "block text-sm font-medium text-gray-700 mb-1" %>
-        <%= f.date_field :creation_date,
-              class: "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500" %>
-      </div>
 
       <!-- Destino -->
       <div>
@@ -54,20 +68,26 @@
 
       <!-- Asunto -->
       <div>
-        <%= f.label :subject_id, "Asunto", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.label :subject_id, "Tema", class: "block text-sm font-medium text-gray-700 mb-1" %>
         <%= f.collection_select :subject_id,
               Subject.all,
               :id, :name,
-              { prompt: "Seleccionar asunto" },
+              { prompt: "Seleccionar tema" },
               class: "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 bg-white focus:ring-blue-500 focus:border-blue-500" %>
       </div>
 
+      <div>
+        <%= f.label :creation_date, "Fecha de creación", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.date_field :creation_date,
+              class: "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500", value: expedient.new_record? ? Date.today : expedient.creation_date %>
+      </div>
     </div>
 
     <!-- BOTONES -->
-    <div class="flex justify-end pt-4 border-t">
+    <div class="flex justify-end pt-2 border-t border-gray-200">
+      <%= close_modal_button %>
       <%= f.submit(expedient.new_record? ? "Crear" : "Actualizar",
-          class: "bg-blue-600 text-white font-semibold px-6 py-2 rounded-lg hover:bg-blue-700 transition") %>
+          class: "bg-blue-600 text-white ml-2 font-semibold px-6 py-2 rounded-lg hover:bg-blue-700 transition") %>
     </div>
 
   <% end %>

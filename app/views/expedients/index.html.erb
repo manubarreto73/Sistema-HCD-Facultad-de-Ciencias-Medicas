@@ -4,9 +4,16 @@
       <h2 class="text-2xl font-semibold text-gray-800">Expedientes</h2>
       <%= new_modal_button('Nuevo expediente', new_expedient_path) %>
     </div>
-    <div class="flex space-x-2">
-      <%= tab_button(text: "No tratados", tab: "no_tratados", current_tab: @tab, path: expedients_path(tab: "no_tratados")) %>
-      <%= tab_button(text: "Tratados", tab: "tratados", current_tab: @tab, path: expedients_path(tab: "tratados")) %>
+    <%= render 'filter' %>
+    <div class="flex justify-between space-x-2 mt-2">
+      <div class="flex">
+        <%= tab_button(text: "No tratados", count: @no_treated_count, path: request.query_parameters.merge(treated: false)) %>
+        <%= tab_button(text: "Tratados", count: @treated_count, path: request.query_parameters.merge(treated: true)) %>
+      </div>
+
+      <div>
+        <%= download_pdf_button(path: download_pdf_expedients_path(treated: params[:treated], format: :pdf)) %>       
+      </div>
     </div>
     <%= turbo_frame_tag "expedients_table" do %>
       <%= render "table", expedients: @expedients %>

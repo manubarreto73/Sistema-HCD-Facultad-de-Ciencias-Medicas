@@ -26,7 +26,7 @@ opinions = ['Dictamen 1', 'Dictamen 2', 'Dictamen 3', 'Dictamen 4', 'Dictamen 5'
 expedients_import = (1..50).map do |i|
   random_past_date = (Time.now - rand(0..20).days).to_date
   {
-    file_number: i,
+    file_number: "#{rand(1000)}-#{rand(10000000)}/#{rand(1000)}-#{rand(100)}",
     responsible: responsibles.sample,
     opinion: opinions.sample,
     detail: details.sample,

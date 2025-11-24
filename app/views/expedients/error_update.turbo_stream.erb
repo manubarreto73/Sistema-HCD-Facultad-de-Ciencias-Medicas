@@ -1,8 +1,5 @@
-<%= turbo_stream.replace "modal" do %>
+<%= turbo_stream.replace "modal" do %> 
   <%= render "shared/modal" do %>
-    <div class="modal-container">
-      <h2 class="modal-title">Actualizar expediente</h2>
-      <%= render "form", expedient: @expedient %>
-    </div>
+    <%= render "form", expedient: @expedient %>
   <% end %>
 <% end %>

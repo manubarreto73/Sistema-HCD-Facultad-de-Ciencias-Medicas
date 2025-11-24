@@ -21,13 +21,17 @@ Rails.application.routes.draw do
       put :treat
       put :delete_from_agenda
     end
+    collection do 
+      get :download_pdf
+    end
   end
 
   resources :daily_agendas do
     member do
-      get :add_expedients # muestra el modal con la lista
-      post :attach_expedient # agrega uno
+      get :add_expedients
+      post :attach_expedient
       put :resolve
+      get :download_pdf
     end
     collection do
       get :today
