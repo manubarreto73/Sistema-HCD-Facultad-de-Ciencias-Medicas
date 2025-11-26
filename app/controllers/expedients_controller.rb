@@ -8,7 +8,7 @@ class ExpedientsController < ApplicationController
 
     @treated_count = @expedients.treated.count
     @no_treated_count = @expedients.no_treated.count
-    puts "Valor de sort_order #{sort_order}"
+
     @expedients =
       params[:treated].to_s == 'true' ? @expedients.treated.order(sort_order) : @expedients.no_treated.order(sort_order)
   end

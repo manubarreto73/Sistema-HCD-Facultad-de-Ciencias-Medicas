@@ -1,6 +1,5 @@
-<header class="text-white fixed top-0 left-0 w-full shadow-md z-50"
-        style="background-color: #009999;">
-  <div class="px-4 py-3 flex justify-between items-center">
+<header class="text-white fixed top-0 left-0 w-full shadow-md z-50 bg-primary-color-static">
+      <div class="px-4 py-3 flex justify-between items-center">
     
     <div class="text-lg font-semibold">
       <%= link_to "HCD Facultad de Ciencias Médicas", root_path,
@@ -8,25 +7,15 @@
     </div>
 
     <nav class="space-x-4 flex items-center">
-      <%= link_to 'Orden del día', today_daily_agendas_path,
-            class: "transition text-white" %>
-
-      <%= link_to 'Expedientes', expedients_path,
-            class: "transition text-white" %>
-
-      <%= link_to 'Destinos', destinations_path,
-            class: "transition text-white" %>
-
-      <%= link_to 'Temas', subjects_path,
-            class: "transition text-white" %>
-
-      <%= link_to "Inicio", root_path,
-            class: "transition text-white" %>
-
+      <%= header_button('Orden del día', today_daily_agendas_path) %>
+      <%= header_button('Expedientes', expedients_path) %>
+      <%= header_button('Destinos', destinations_path) %>
+      <%= header_button('Temas', subjects_path) %>
       <%= link_to "Cerrar sesión", destroy_user_session_path,
             data: { turbo_method: :delete },
-            class: "transition font-semibold",
-            style: "color: #ffdddd;" %>
+            class: "transition font-semibold" %>
+
+
     </nav>
   </div>
 </header>

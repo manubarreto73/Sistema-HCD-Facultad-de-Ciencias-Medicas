@@ -3,7 +3,7 @@
 # Esta clase busca centralizar los botones y ahorrar código
 module ButtonHelper
   CLOSE_BUTTON_CLASS = 'bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition font-medium'
-  NEW_BUTTON_CLASS   = 'bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition font-medium'
+  NEW_BUTTON_CLASS   = 'bg-primary-color text-white px-4 py-2 rounded-lg transition font-medium'
   ACTIVE_TAB         = 'px-4 py-2 rounded-t-md text-sm font-semibold transition bg-gray-100 text-gray-900'
   NON_ACTIVE_TAB     = 'px-4 py-2 rounded-t-md text-sm font-semibold transition bg-gray-300 text-gray-600 hover:bg-gray-200'
 
@@ -44,5 +44,10 @@ module ButtonHelper
 
     label = "#{label} ^" if direction == 'desc'
     link_to label, request.query_parameters.merge(sort: column, direction: direction), class: "underline cursor-pointer"
+  end
+
+  def header_button(title, path)
+    active = current_page?(path)
+    link_to title, path, class: "transition underline underline-offset-4 hover:underline-offset-8 #{'text-green-200' if active}"
   end
 end

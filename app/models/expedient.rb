@@ -4,6 +4,11 @@ class Expedient < ApplicationRecord
   belongs_to :daily_agenda, optional: true
 
   validates :file_number, uniqueness: { message: 'El número de expediente ya existe' }
+  validates :file_number,  presence: { message: 'El número de expediente no puede estar vacío' }
+
+  validates :responsible, length: { maximum: 50, message: 'El nombre del responsable es muy largo (máximo 30 carácteres)' }
+  validates :opinion, length: { maximum: 200, message: 'El dictámen es muy largo (máximo 200 caracteres)' }
+  validates :detail, length: { maximum: 200, message: 'El detalle es muy largo (máximo 200 carácteres)' }
 
   enum :file_status, {
     no_treated: 0,

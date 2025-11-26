@@ -35,24 +35,42 @@
        </div>
       <div>
         <%= f.label :responsible, "Responsable", class: "block text-sm font-medium text-gray-700 mb-1" %>
-        <%= f.text_field :responsible,
+        <%= f.text_field :responsible, maxlength: 50,
               class: "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500" %>
+         <% if expedient.errors[:responsible].any? %>
+          <div data-controller="form-flash"
+              class="text-xs p-1 text-red-600">
+            <%= expedient.errors[:responsible].first %>
+          </div>
+        <% end %>
       </div>
 
       <!-- Detalle -->
       <div class="md:col-span-2">
         <%= f.label :detail, "Detalle", class: "block text-sm font-medium text-gray-700 mb-1" %>
-        <%= f.text_area :detail,
+        <%= f.text_area :detail, maxlength: 200,
               rows: 3,
               class: "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500" %>
+        <% if expedient.errors[:detail].any? %>
+          <div data-controller="form-flash"
+              class="text-xs p-1 text-red-600">
+            <%= expedient.errors[:detail].first %>
+          </div>
+        <% end %>
       </div>
 
       <!-- Opinión -->
       <div class="md:col-span-2">
         <%= f.label :opinion, "Dictámen", class: "block text-sm font-medium text-gray-700 mb-1" %>
-        <%= f.text_area :opinion,
+        <%= f.text_area :opinion, maxlength: 200,
               rows: 2,
               class: "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500" %>
+        <% if expedient.errors[:opinion].any? %>
+          <div data-controller="form-flash"
+              class="text-xs p-1 text-red-600">
+            <%= expedient.errors[:opinion].first %>
+          </div>
+        <% end %>
       </div>
 
 

@@ -26,3 +26,23 @@
 .animate-scale-in {
   animation: scale-in 0.25s ease-out;
 }
+
+.primary-color {
+  color:#009999;
+}
+
+.border-primary {
+  border-color:#009999;
+}
+
+.bg-primary-color {
+  background-color: #009999;
+}
+
+.bg-primary-color:hover {
+  background-color: #009999bf;
+}
+
+.bg-primary-color-static {
+  background-color: #009999;
+}
