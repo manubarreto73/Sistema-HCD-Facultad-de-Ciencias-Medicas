@@ -37,25 +37,30 @@ module ButtonHelper
 
     active = current_treated == tab_treated
     classes = active ? ACTIVE_TAB : NON_ACTIVE_TAB
+    div_id =  text.downcase.gsub(' ', '_')
 
     text = "#{text} (#{count})" if count.positive?
 
     link_to path, class: 'group' do
-      content_tag(:div, text, class: classes)
+      content_tag(:div, text, class: classes, id: div_id)
     end
   end
 
   def download_pdf_button(path:)
     link_to path, class: 'group' do
-      content_tag(:div, 'Descargar PDF', class: ACTIVE_TAB)
+      content_tag(:div, 'Descargar PDF', class: "#{ACTIVE_TAB} hover:bg-gray-200")
     end
   end
 
   def sortable(column, label)
-    direction = (params[:sort] == column && params[:direction] == "asc") ? "desc" : "asc"
+    direction =
+      (params[:sort] == column && params[:direction] == "asc") ? "desc" : "asc"
+
+    new_params = pagination_params(sort: column, direction: direction)
 
     label = "#{label} ^" if direction == 'desc'
-    link_to label, request.query_parameters.merge(sort: column, direction: direction), class: "underline cursor-pointer"
+
+    link_to label, new_params, class: "underline cursor-pointer"
   end
 
   def header_button(title, path)

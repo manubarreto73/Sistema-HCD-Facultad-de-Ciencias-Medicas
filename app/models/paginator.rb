@@ -1,9 +1,8 @@
 class Paginator
-  PER_PAGE = 5
+  PER_PAGE = 15
   attr_reader :items, :page, :per_page, :total_pages
 
   def initialize(scope, page:)
-    puts "Entró al paginator"
     @items = scope
     @per_page = PER_PAGE
     @page = valid_page(page)

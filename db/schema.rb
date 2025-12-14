@@ -10,11 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_30_232101) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_14_165648) do
+  create_table "daily_agenda_expedient_histories", force: :cascade do |t|
+    t.integer "daily_agenda_id", null: false
+    t.integer "expedient_id", null: false
+    t.integer "previous_destination_id", null: false
+    t.integer "new_destination_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["daily_agenda_id"], name: "index_daily_agenda_expedient_histories_on_daily_agenda_id"
+    t.index ["expedient_id"], name: "index_daily_agenda_expedient_histories_on_expedient_id"
+    t.index ["new_destination_id"], name: "index_daily_agenda_expedient_histories_on_new_destination_id"
+    t.index ["previous_destination_id"], name: "idx_on_previous_destination_id_e010e9405a"
+  end
+
   create_table "daily_agendas", force: :cascade do |t|
     t.date "date", default: "2025-11-29", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "destination_id"
+    t.index ["destination_id"], name: "index_daily_agendas_on_destination_id"
   end
 
   create_table "destinations", force: :cascade do |t|
@@ -50,6 +65,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_30_232101) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "daily_agenda_id"
+    t.integer "position"
     t.index ["daily_agenda_id"], name: "index_expedients_on_daily_agenda_id"
     t.index ["destination_id"], name: "index_expedients_on_destination_id"
     t.index ["subject_id"], name: "index_expedients_on_subject_id"
@@ -77,6 +93,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_30_232101) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "daily_agenda_expedient_histories", "daily_agendas"
+  add_foreign_key "daily_agenda_expedient_histories", "destinations", column: "new_destination_id"
+  add_foreign_key "daily_agenda_expedient_histories", "destinations", column: "previous_destination_id"
+  add_foreign_key "daily_agenda_expedient_histories", "expedients"
+  add_foreign_key "daily_agendas", "destinations"
   add_foreign_key "expedient_histories", "expedients"
   add_foreign_key "expedient_histories", "users"
   add_foreign_key "expedients", "daily_agendas"

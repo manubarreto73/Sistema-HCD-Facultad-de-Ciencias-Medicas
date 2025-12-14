@@ -7,7 +7,7 @@
     <div class="flex justify-end gap-4 p-2">
       <%= close_modal_button %>  
       <%= link_to 'Confirmar', 
-          mark_expedient_as_treated_daily_agenda_path(@expedient.daily_agenda, expedient_id: @expedient.id),
+          mark_expedient_as_treated_daily_agenda_path(@expedient.daily_agenda, expedient_id: @expedient.id, page: params[:page]),
           data: { turbo_method: :put }, class: 'bg-primary-color text-white px-4 py-2 rounded-lg transition font-medium' %>  
     </div>
   </div>

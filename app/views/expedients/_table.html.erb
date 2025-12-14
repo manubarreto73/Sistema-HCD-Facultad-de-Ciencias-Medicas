@@ -5,6 +5,9 @@
       <th class="px-6 py-3 font-semibold text-center"> <%= sortable('subjects.name', 'Tema') %> </th>      
       <th class="px-6 py-3 font-semibold text-center"> <%= sortable('destinations.name', 'Destino') %> </th>
       <th class="px-6 py-3 font-semibold text-center">Responsable</th>
+      <% if params[:treated] == 'true' %>
+        <th class="px-6 py-3 font-semibold text-center">Fecha tratado</th>
+      <% end %>
       <th class="px-6 py-3 font-semibold text-center">Acciones</th>
     </tr>
   </thead>

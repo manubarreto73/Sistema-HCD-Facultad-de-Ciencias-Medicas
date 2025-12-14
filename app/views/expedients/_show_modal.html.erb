@@ -82,6 +82,18 @@
     </p>
   </div>
 
+  <% if expedient.treated? %>
+    <div class="col-span-2">
+      <label class="text-sm font-semibold text-gray-600">Historial de destinos</label>
+      <div class="max-h-48 overflow-auto">
+        <% expedient.daily_agenda_histories.each do |history| %>
+          <p class="bg-gray-100 px-3 py-2">
+            <%= history.previous_destination.name %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>
 
 <div class="flex justify-end mt-8">

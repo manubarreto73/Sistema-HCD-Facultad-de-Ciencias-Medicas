@@ -78,7 +78,7 @@
       <div>
         <%= f.label :destination_id, "Destino", class: "block text-sm font-medium text-gray-700 mb-1" %>
         <%= f.collection_select :destination_id,
-              Destination.active_first,
+              Destination.actives,
               :id, :name,
               { prompt: "Seleccionar destino" },
               class: "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 bg-white focus:ring-blue-500 focus:border-blue-500" %>
@@ -88,7 +88,7 @@
       <div>
         <%= f.label :subject_id, "Tema", class: "block text-sm font-medium text-gray-700 mb-1" %>
         <%= f.collection_select :subject_id,
-              Subject.all,
+              Subject.actives,
               :id, :name,
               { prompt: "Seleccionar tema" },
               class: "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 bg-white focus:ring-blue-500 focus:border-blue-500" %>

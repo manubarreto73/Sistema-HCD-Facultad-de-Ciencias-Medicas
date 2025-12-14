@@ -1,0 +1,6 @@
+<td class="px-6 py-4 font-medium <%= 'bg-slate-400 transition' if updated %> "><%= destination.name %></td>
+<td class="px-6 py-4 text-center font-medium <%= 'bg-slate-400 transition' if updated %> ">  <%= destination.is_commission ? 'Si' : 'No' %>  </td>
+<td class="px-6 py-4 text-center space-x-2 <%= 'bg-slate-400 transition' if updated %> ">
+  <%= link_to "Editar", edit_destination_path(destination), class: "hover:underline font-medium", data: { turbo_frame: "modal" } %>
+  <%= link_to 'Eliminar', modal_delete_destination_path(destination, page: params[:page]),  class: "hover:underline font-medium", data: { turbo_frame: 'modal'} %>
+</td>

@@ -3,8 +3,13 @@ class Expedient < ApplicationRecord
   belongs_to :destination, optional: true
   belongs_to :daily_agenda, optional: true
   has_many :expedient_histories, dependent: :destroy
+
+  has_many :daily_agenda_histories,
+         class_name: "DailyAgendaExpedientHistory",
+         dependent: :nullify
+
   validates :file_number, uniqueness: { message: 'El número de expediente ya existe' }
-  validates :file_number, presence: { message: 'El número de expediente no puede estar vacío' } 
+  validates :file_number, presence: { message: 'El número de expediente no puede estar vacío' }
   validates :file_number, length: { minimum: 19, message: 'El número de expediente es corto' }
   validates :responsible, length: { maximum: 50, message: 'El nombre del responsable es muy largo (máximo 30 carácteres)' }
   validates :opinion, length: { maximum: 200, message: 'El dictámen es muy largo (máximo 200 caracteres)' }
@@ -18,12 +23,17 @@ class Expedient < ApplicationRecord
 
   scope :treated, -> { where(file_status: 'treated') }
   scope :no_treated, -> { where(file_status: 'no_treated') }
-  scope :for_daily_agenda, lambda {
-    where(file_status: 'no_treated',
-          destination: Destination.find_by(name: 'Honorable Consejo Directivo'),
-          daily_agenda_id: nil)
+  scope :for_destination, ->(destination) {
+    where(
+      file_status: 'no_treated',
+      destination_id: destination&.id,
+      daily_agenda_id: nil
+    )
   }
-
+  scope :ordered, -> { order(:position) }
+  scope :by_subject_priority, -> {
+    joins(:subject).order("subjects.priority ASC")
+  }
   # Metodos para mejorar la info de las vistas
 
   FIELD_TRANSLATIONS = {
@@ -73,9 +83,23 @@ class Expedient < ApplicationRecord
     file_number.split('-')[2]
   end
 
-  def logic_delete
+  def logic_delete(current_user)
     deleted!
+    expedient_histories.create(action: 2, description: nil, user: current_user)
     update(subject: nil, destination: nil, daily_agenda: nil, file_number: "#{file_number}* [DELETED]")
+  end
+
+  def deleted_info
+    info = expedient_histories.deletion.last
+    {
+      file_number: file_number.gsub('* [DELETED]', ''),
+      user: info.user.name,
+      date: info.created_at.strftime('%d/%m/%Y %H:%M')
+    }
+  end
+
+  def priority
+    subject&.priority || 0
   end
 
   def create_history(current_user)

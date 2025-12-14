@@ -1,0 +1,7 @@
+<td class="px-6 py-4 <%= 'transition duration-300 font-medium bg-slate-400' if updated %>"><%= subject.name %></td>
+<td class="px-6 py-4 text-center <%= 'transition duration-300 font-medium bg-slate-400' if updated %>" ><%= subject.priority %> </td>
+<td class="px-6 py-4 text-center space-x-2 <%= 'transition duration-300 font-medium bg-slate-400' if updated %>">
+  <%= link_to "Editar", edit_subject_path(subject),
+      class: "hover:underline font-medium", data: { turbo_frame: 'modal'} %>
+  <%= link_to 'Eliminar', modal_delete_subject_path(subject, page: params[:page], treated: params[:treated]),  class: "hover:underline font-medium", data: { turbo_frame: 'modal'} %>
+</td>
