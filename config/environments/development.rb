@@ -49,15 +49,27 @@ Rails.application.configure do
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
 
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_caching = false
 
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.delivery_method = :smtp
+
   config.action_mailer.smtp_settings = {
-  user_name: ENV["MAILTRAP_USERNAME"],
-  password: ENV["MAILTRAP_PASSWORD"],
-  address: "sandbox.smtp.mailtrap.io",
-  domain: "sandbox.smtp.mailtrap.io",
-  port: 587,
-  authentication: :plain
+  address:              "smtp.gmail.com",
+  port:                 587,
+  domain:               "gmail.com",
+  user_name:            "pruebashcduno@gmail.com",
+  password:             "uvcv rfoq cjqe dthp",
+  authentication:       :plain,
+  enable_starttls_auto: true,
+  open_timeout:         5,
+  read_timeout:         5
 }
+
+  config.active_job.queue_adapter = :async
+
+  config.assets.quiet = true
+
+  config.action_controller.raise_on_missing_callback_actions = true
 end

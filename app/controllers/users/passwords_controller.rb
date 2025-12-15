@@ -8,7 +8,7 @@ class Users::PasswordsController < Devise::PasswordsController
       new_password = generate_reset_password
       user.update(password: new_password)
 
-      UserMailer.reset_password_email(user, new_password).deliver_now
+      UserMailer.reset_password_email(user, new_password).deliver_later
     end
 
     redirect_to new_user_session_path, notice: "Si el correo es válido, se envió una nueva contraseña."
