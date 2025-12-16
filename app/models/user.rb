@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   validate :password_complexity
 
+  validates :name, presence: true
+
   private
 
   def password_complexity

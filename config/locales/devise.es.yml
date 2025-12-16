@@ -1,6 +1,12 @@
 # Additional translations at https://github.com/heartcombo/devise/wiki/I18n
 
 es:
+  activerecord:
+    attributes:
+      user:
+        password: "La contraseña"
+        password_confirmation: "La contraseña"
+        email: "Correo electrónico"
   devise:
     confirmations:
       confirmed: "Your email address has been successfully confirmed."
@@ -63,4 +69,8 @@ es:
       not_saved:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
-      weak_password: 'La contraseña debe contener una letra mayúscula, un número y tener al menos 8 carácteres'
+      weak_password: ' debe contener una letra mayúscula, un número y tener al menos 8 carácteres'
+      too_short: " es demasiado corta (mínimo %{count} caracteres)"
+      confirmation: " no coincide"
+      taken: "ya está en uso"
+      blank: "no puede estar vacío"

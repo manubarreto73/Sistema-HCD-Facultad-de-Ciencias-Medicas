@@ -1,16 +1,44 @@
-<h2>Forgot your password?</h2>
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div class="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+    <h2 class="text-2xl font-semibold text-gray-800 mb-2 text-center">
+      ¿Olvidaste tu contraseña?
+    </h2>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <p class="text-sm text-gray-500 mb-6 text-center">
+      Ingresá tu correo y te enviaremos una nueva contraseña
+    </p>
+
+    <%= form_for(resource, as: resource_name,
+          url: password_path(resource_name),
+          html: { method: :post }) do |f| %>
+
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-700 mb-1">
+          Email
+        </label>
+
+        <%= f.email_field :email,
+              autofocus: true,
+              class: "w-full rounded-lg border-gray-300 px-4 py-2
+                      focus:ring-2 focus:ring-teal-500 focus:border-teal-500" %>
+      </div>
+
+      <!-- BOTÓN EXPLÍCITO -->
+      <%= f.submit "Recibir nueva contraseña",
+            class: "w-full bg-teal-600 hover:bg-teal-700
+                    text-white font-medium py-2 rounded-lg transition" %>
+
+    <% end %>
+
+    <div class="mt-6 text-center text-sm text-gray-500">
+      <%= link_to "Iniciar sesión", new_session_path(resource_name),
+            class: "text-teal-600 hover:underline" %>
+      ·
+      <%= link_to "Registrarme", new_registration_path(resource_name),
+            class: "text-teal-600 hover:underline" %>
+    </div>
+
   </div>
+</div>
 
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>

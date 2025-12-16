@@ -11,6 +11,9 @@
       <%= header_button('Expedientes', expedients_path(treated: false)) %>
       <%= header_button('Destinos', destinations_path) %>
       <%= header_button('Temas', subjects_path) %>
+      <%= link_to "Cambiar contraseña",
+            edit_password_change_path,
+            class: "hover:underline" %>
       <%= link_to "Cerrar sesión", destroy_user_session_path,
             data: { turbo_method: :delete },
             class: "transition font-semibold" %>
