@@ -18,11 +18,11 @@ class SubjectsController < ApplicationController
     @subject = Subject.new(subject_params)
 
     if @subject.save
-      paginate
       respond_to do |format|
+        paginate
         flash[:notice] = 'Tema creado correctamente'
         format.turbo_stream
-        format.html { redirect_to destinations_path }
+        format.html { redirect_to subjects_path }
       end
     else
       respond_to do |format|
@@ -74,15 +74,19 @@ class SubjectsController < ApplicationController
   end
 
   def paginate
-    @page = params[:page].to_i
-    paginator = Paginator.new(Subject.actives.order(:name), page: @page)
-    @show_empty = Subject.actives.none?
+    page = @page || params[:page].to_i
+    page = 1 if page < 1
+
+    paginator = Paginator.new(Subject.actives.order(:name), page: page)
+
     @subjects = paginator.paginated
-    if @subjects.empty? && @page > 1
-      @page -= 1
-      paginator = Paginator.new(Subject.actives.order(:name), page: @page)
+
+    if @subjects.empty? && page > 1
+      page -= 1
+      paginator = Paginator.new(Subject.actives.order(:name), page: page)
       @subjects = paginator.paginated
     end
+
     @page = paginator.page
     @total_pages = paginator.total_pages
   end

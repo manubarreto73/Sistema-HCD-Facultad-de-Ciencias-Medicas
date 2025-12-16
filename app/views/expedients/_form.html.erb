@@ -9,21 +9,20 @@
           <%= f.label :file_number, "Número de expediente", class: "block text-sm font-medium text-gray-700 mb-1" %>
         </div>
         <div class="flex gap-2 items-end">
-          <div>
-            <%= f.number_field :dependency, maxlength: 4, class: "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500" %>
+          <div class="w-20">
+            <%= f.text_field :dependency,  inputmode: "numeric", class:  "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500", pattern: "[0-9]*", maxlength: 3, placeholder: 'xxx' %>
           </div>
           <span class="pb-2">-</span>
           <div>
-            <%= f.number_field :file_digits, maxlength: 8, class: "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500" %>
+            <%= f.text_field :file_digits, inputmode: "numeric", class:  "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500", pattern: "[0-9]*", maxlength: 8, placeholder: 'xxxxxxxx' %>
           </div>
           <span class="pb-2">/</span>
           <div>
-            <%= f.number_field :file_year, maxlength: 4, class: "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500" %>
+            <%= f.text_field :file_year, inputmode: "numeric", class:  "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500", pattern: "[0-9]*", maxlength: 4, placeholder: 'xxx' %>
           </div>
           <span class="pb-2">-</span>
-
           <div>
-            <%= f.number_field :correspondence, maxlength: 3, class: "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500" %>
+            <%= f.text_field :correspondence, inputmode: "numeric", class:  "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500", pattern: "[0-9]*", maxlength: 3, placeholder: 'xxx' %>
           </div>
         </div>
         <% if expedient.errors[:file_number].any? %>
@@ -82,6 +81,12 @@
               :id, :name,
               { prompt: "Seleccionar destino" },
               class: "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 bg-white focus:ring-blue-500 focus:border-blue-500" %>
+        <% if expedient.errors[:destination].any? %>
+          <div data-controller="form-flash"
+              class="text-xs p-1 text-red-600">
+            <%= expedient.errors[:destination].first %>
+          </div>
+        <% end %>
       </div>
 
       <!-- Asunto -->
@@ -92,6 +97,12 @@
               :id, :name,
               { prompt: "Seleccionar tema" },
               class: "w-full border-gray-300 rounded-lg shadow-sm px-3 py-2 bg-white focus:ring-blue-500 focus:border-blue-500" %>
+        <% if expedient.errors[:subject].any? %>
+          <div data-controller="form-flash"
+              class="text-xs p-1 text-red-600">
+            <%= expedient.errors[:subject].first %>
+          </div>
+        <% end %>
       </div>
 
       <div>

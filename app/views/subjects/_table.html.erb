@@ -1,13 +1,12 @@
-<table class="w-full text-left border-collapse">
+<table class="elements-table">
   <thead>
-    <tr class="bg-gray-50 border-b border-gray-200 text-gray-700 text-sm uppercase">
-      <th class="w-1/2 px-6 py-3 font-semibold">Nombre</th>
-      <th class="w-1/4 px-6 py-3 font-semibold text-center">Prioridad</th>
-      <th class="w-1/4 px-6 py-3 font-semibold text-center">Acciones</th>
+    <tr class="elements-header-tr">
+      <th>Nombre</th>
+      <th>Prioridad</th>
+      <th>Acciones</th>
     </tr>
   </thead>
-
-  <tbody id="subjects_index" class="divide-y divide-gray-100 text-gray-700">
+  <tbody id="subjects_index" class="elements-body">
     <% if subjects.empty? %>
       <tr>
         <td class=" p-6 font-medium">No hay temas cargados aún</td>

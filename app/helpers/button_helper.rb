@@ -68,11 +68,13 @@ module ButtonHelper
     link_to title, path, class: "transition underline underline-offset-4 hover:underline-offset-8 #{'text-green-200' if active}"
   end
 
-  def tab_button_agenda(text:, count:, path:)
+  def tab_button_agenda(text:, count:, path:, treated:)
     current_treated = params[:treated].to_s == 'true'
-    tab_treated     = path[:treated].to_s == 'true'
+    puts path.class
+    puts current_treated
+    # tab_treated = path[:treated].to_s == 'true'
 
-    active = current_treated == tab_treated
+    active = current_treated == treated
     classes = active ? ACTIVE_TAB : NON_ACTIVE_TAB
     div_id =  text.downcase.gsub(' ', '_')
     text = "#{text} (#{count})" if count.positive?

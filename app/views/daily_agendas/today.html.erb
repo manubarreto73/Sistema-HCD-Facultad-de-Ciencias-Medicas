@@ -3,43 +3,34 @@
     <%= turbo_frame_tag 'today_daily_agenda_header' do %>
     <div class="index-title-container justify-between">
       <div class="w-2/3">
-        <h2 class="text-2xl font-semibold text-gray-800">Orden del día (<%= @daily_agenda.destination.name %>) #<%= @daily_agenda.id %> <%= "(#{@daily_count})" if @daily_count > 1 %></h2>
+        <h2 class="text-2xl font-semibold text-gray-800">Orden del día #<%= @daily_agenda.id %> <%= "(#{@daily_count})" if @daily_count > 1 %></h2>
       </div>
-      <div data-controller="dropdown" class="relative inline-block text-left">
-        <button
-          data-action="click->dropdown#toggle"
-          class="bg-primary-color text-white px-4 py-2 rounded-lg transition font-medium flex items-center gap-2"
-        >
-          Acciones
-          <svg data-dropdown-target="icon"
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-4 w-4 transition-transform duration-200"
-              fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
 
-        <div data-dropdown-target="menu" class="absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-lg border border-gray-200 z-50 text-center hidden flex flex-col transition duration-300">
-          <%= link_to 'Agregar expedientes', add_expedients_daily_agenda_path(@daily_agenda), data: { turbo_frame: 'modal' }, class: 'hover:bg-gray-100 p-1' %>
-          <% if @daily_agenda.hcd? %>
-            <%= link_to 'Marcar como tratada', mark_as_treated_modal_daily_agenda_path(@daily_agenda), data: { turbo_frame: 'modal' }, class: 'hover:bg-gray-100 p-1' %>
-          <% else %>
-            <%= link_to 'Marcar como tratada', destination_daily_agendas_treat_path(@daily_agenda), data: { turbo_frame: "_top" }, class: 'hover:bg-gray-100 p-1' %>
-          <% end %>
-          <%= link_to 'Editar fecha', edit_daily_agenda_path(@daily_agenda), data: { turbo_frame: 'modal' }, class: 'hover:bg-gray-100 p-1' %>
-          <%= link_to 'Editar orden expedientes', edit_expedients_daily_agenda_path(@daily_agenda), data: { turbo_frame: '_top' }, class: 'hover:bg-gray-100 p-1' %>
-          <%= link_to 'Ver ordenes tratadas', destination_daily_agendas_treated_path(@daily_agenda.destination.id), class: 'hover:bg-gray-100 p-1', data: { turbo: false } %>
-          <%= link_to 'Descargar orden del día', download_pdf_daily_agenda_path(@daily_agenda, format: :pdf), class: 'hover:bg-gray-100 p-1' %>
-        </div>
+      <div  class="w-full flex justify-end space-x-2 flex-wrap">
+       
+        <% if @daily_agenda.hcd? %>
+          <%= link_to 'Marcar como tratada', mark_as_treated_modal_daily_agenda_path(@daily_agenda), data: { turbo_frame: 'modal' }, class: 'agenda-button bg-primary-color' %>
+        <% else %>
+          <%= link_to 'Marcar como tratada', destination_daily_agendas_treat_path(@daily_agenda), data: { turbo_frame: "_top" }, class: 'agenda-button bg-primary-color' %>
+        <% end %>
+        <%= link_to 'Editar fecha', edit_daily_agenda_path(@daily_agenda), data: { turbo_frame: 'modal' }, class: 'agenda-button bg-primary-color' %>
+        <%= link_to 'Ver ordenes tratadas', destination_daily_agendas_treated_path(@daily_agenda.destination.id), class: 'agenda-button bg-primary-color', data: { turbo: false } %>
+        <%= link_to 'Descargar orden del día', download_pdf_daily_agenda_path(@daily_agenda, format: :pdf), class: 'agenda-button bg-primary-color' %>
       </div>
     </div>
     <% end %>
-    <%= render 'filter' %>
      
-    <div class="flex space-x-2 mt-2">
-      <%= tab_button_agenda(text: "No tratados", count: @no_treated_count, path: pagination_params(treated: false)) %>
-      <%= tab_button_agenda(text: "Tratados", count: @treated_count, path: pagination_params(treated: true)) %>
+    <div class="flex mt-2 justify-between">
+      <div class="flex space-x-2 pr-2">
+        <%= tab_button_agenda(text: "No tratados", count: @no_treated_count, path: agenda_path(@daily_agenda, pagination_params_agenda(treated: false)), treated: false) %>
+        <%= tab_button_agenda(text: "Tratados", count: @treated_count, path: agenda_path(@daily_agenda, pagination_params_agenda(treated: true)), treated: true) %>
+      </div>
+
+      <div class="flex space-x-2 pr-2">
+        <%= link_to 'Agregar expedientes', add_expedients_daily_agenda_path(@daily_agenda), data: { turbo_frame: 'modal' }, class: 'agenda-button bg-primary-color' %>
+
+        <%= link_to 'Editar orden expedientes', edit_expedients_daily_agenda_path(@daily_agenda), data: { turbo_frame: '_top' }, class: 'agenda-button bg-primary-color' %>
+      </div>
     </div>
 
     <%= turbo_frame_tag "daily_agenda_expedients" do %>

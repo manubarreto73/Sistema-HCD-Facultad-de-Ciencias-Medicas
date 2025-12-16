@@ -19,6 +19,17 @@ module ApplicationHelper
     params.permit(allowed).to_h.merge(overrides).compact
   end
 
+  def pagination_params_agenda(overrides = {})
+    allowed = %i[
+      treated
+      page
+      sort
+      direction
+    ]
+
+    params.permit(allowed).to_h.merge(overrides).compact
+  end
+
   def agenda_path(daily_agenda, options = {})
     if daily_agenda.hcd?
       today_daily_agendas_path(params: options)

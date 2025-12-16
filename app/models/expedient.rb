@@ -12,8 +12,13 @@ class Expedient < ApplicationRecord
   validates :file_number, presence: { message: 'El número de expediente no puede estar vacío' }
   validates :file_number, length: { minimum: 19, message: 'El número de expediente es corto' }
   validates :responsible, length: { maximum: 50, message: 'El nombre del responsable es muy largo (máximo 30 carácteres)' }
+  validates :responsible, presence: { message: 'El responsable no puede estar vacío' }
   validates :opinion, length: { maximum: 200, message: 'El dictámen es muy largo (máximo 200 caracteres)' }
+  validates :opinion, presence: { message: 'El dictámen no puede estar vacío' }
   validates :detail, length: { maximum: 200, message: 'El detalle es muy largo (máximo 200 carácteres)' }
+  validates :detail, presence: { message: 'El detalle no puede estar vacío' }
+  validates :subject, presence: { message: 'Tenés que elegir un tema'}
+  validates :destination, presence: { message: 'Tenés que elegir un destino'}
 
   enum :file_status, {
     no_treated: 0,
