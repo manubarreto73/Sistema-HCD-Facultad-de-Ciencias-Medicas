@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-    passwords: "users/passwords"
+    passwords: "users/passwords",
+    registrations: "users/registrations"
   }
 
   resource :password_change,
