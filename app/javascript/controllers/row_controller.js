@@ -11,7 +11,7 @@ export default class extends Controller {
     const elem = document.getElementById(this.rowValue).querySelectorAll('td')
     setTimeout(() => {
     elem.forEach(cell => {
-      cell.classList.remove('bg-slate-400')
+      cell.classList.remove('updating-bg')
     })
     }, 1500)
   }

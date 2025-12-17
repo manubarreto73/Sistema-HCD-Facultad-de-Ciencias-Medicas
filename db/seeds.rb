@@ -17,16 +17,17 @@ def random_number_of_digits_exclusive(num_digits)
   return rand(min_value...max_exclusive)
 end
 ExpedientHistory.delete_all
+DailyAgendaExpedientHistory.delete_all
 Expedient.delete_all
 DailyAgenda.delete_all
 Subject.delete_all
 Destination.delete_all
 
-subjects_import = (1..30).map { |i| { name: "Tema #{i}", priority: rand(20) } }
+subjects_import = (1..15).map { |i| { name: "Tema #{i}", priority: rand(20) } }
 Subject.create(subjects_import)
 
 hcd = Destination.create(name: 'Honorable Consejo Directivo')
-destinations_import = (1..30).map { |i| { name: "Destino #{i}", is_commission: [true, false].sample } }
+destinations_import = (1..15).map { |i| { name: "Destino #{i}", is_commission: [true, false].sample } }
 Destination.create(destinations_import)
 
 responsibles = ['Responsable 1', 'Responsable 2', 'Responsable 3', 'Responsable 4', 'Responsable 5']

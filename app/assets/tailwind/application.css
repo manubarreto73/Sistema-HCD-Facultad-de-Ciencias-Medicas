@@ -1,29 +1,100 @@
 @import "tailwindcss";
 
-.field_with_errors input {
-  @apply border-red-500 focus:border-red-600 ring-red-200;
+ .field-with-errors {
+    @apply border-red-500;
+  }
+
+  .field-with-errors:focus {
+    @apply border-red-600 ring-red-200;
+  }
+/* ===================== */
+/* Base (html, body, forms) */
+/* ===================== */
+@layer base {
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+}
+/* ===================== */
+/* Components (UI reutilizable) */
+/* ===================== */
+@layer components {
+  .field_with_errors input {
+    --tw-border-opacity: 1;
+    border-color: theme('colors.red.500');
+  }
+
+  .field_with_errors input:focus {
+    --tw-border-opacity: 1;
+    border-color: theme('colors.red.600');
+    --tw-ring-color: theme('colors.red.200');
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.2s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.25s ease-out;
+  }
+
+  .primary-color {
+    color: #009999;
+  }
+
+  .border-primary {
+    border-color: #009999;
+  }
+
+  .bg-primary-color {
+    background-color: #009999;
+  }
+
+  .bg-primary-color:hover {
+    background-color: #009999bf;
+  }
+  
+  .bg-primary-color-static {
+    background-color: #009999;
+  }
+
+  .modal-container {
+    @apply bg-white rounded-2xl shadow-lg w-full max-w-md p-6 relative;
+  }
+
+  .index-container {
+    @apply min-h-screen bg-gray-100 flex flex-col items-center px-4 pt-10;
+  }
+  
+  .index-background {
+    @apply bg-white w-full rounded-3xl shadow-lg;
+  }
+
+  .index-title-container {
+    @apply px-6 py-4 border-b border-gray-200 flex justify-between items-center;
+  }
+
+  .modal-title {
+    @apply text-xl font-semibold mb-4 text-gray-800;
+  }
+  
+  .expedient-breadcrumb {
+    @apply inline-flex text-sm bg-indigo-100 px-1 rounded-sm mx-1 p-1;
+  }
+
+  .updating-bg {
+    @apply bg-slate-400;
+  }
 }
 
-.modal-container {
-  @apply bg-white rounded-2xl shadow-lg w-full max-w-md p-6 relative;
-}
+/* ===================== */
+/* Imports de módulos */
+/* ===================== */
+@import "./components/utils.css";
 
-.index-container {
-  @apply min-h-screen bg-gray-100 flex flex-col items-center px-4 pt-10;
-}
-
-.index-background {
-  @apply bg-white w-full rounded-3xl shadow-lg;
-}
-
-.index-title-container {
-  @apply px-6 py-4 border-b border-gray-200 flex justify-between items-center;
-}
-
-.modal-title {
-  @apply text-xl font-semibold mb-4 text-gray-800;
-}
-
-.expedient-breadcrumb {
-  @apply inline-flex text-sm bg-indigo-100 px-1 rounded-sm mx-1 p-1;
-}

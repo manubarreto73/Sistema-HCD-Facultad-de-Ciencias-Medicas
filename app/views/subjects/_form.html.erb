@@ -1,25 +1,19 @@
-<%= form_with(model: subject, class: "space-y-4 #{'animate-scale-in' if subject.errors.empty?}", data: { turbo_frame: "_top" }) do |f| %>
+<%= form_with(model: subject, class: "element-form space-y-4 #{'animate-scale-in' if subject.errors.empty?}", data: { turbo_frame: "_top" }) do |f| %>
+  <%= hidden_field_tag :page, params[:page] %>
   <div>
-    <%= f.label 'Nombre', class: "block text-sm font-medium text-gray-700" %>
-    <%= f.text_field :name, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-gray-500 focus:border-gray-500" %>
-    <% if subject.errors[:name].any? %>
-      <div data-controller="form-flash"
-          class="text-xs p-1 text-red-600">
-        <%= subject.errors[:name].first %>
-      </div>
-    <% end %>
+    <%= f.label 'Nombre' %>
+    <%= f.text_field :name, class: "#{'input-errors' if subject.errors[:name].any? }" %>
+    <%= render 'form_errors', subject: subject if subject.errors[:name].any? %>
   </div>
 
-  <div class="flex items-center space-x-2">
+  <div>
     <%= f.label 'Prioridad', class: "block text-sm font-medium text-gray-700" %>
-    <%= f.number_field :priority, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-gray-500 focus:border-gray-500" %>
+    <%= f.number_field :priority %>
   </div>
 
-  <div class="flex justify-end space-x-2">
+  <div>
+    <%= close_modal_button %>
     <%= f.submit (subject.new_record? ? "Crear tema" : "Actualizar tema"),
-      class: "bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition font-medium" %>
-
-    <%= link_to "Cancelar", "#", data: { action: "click->modal#close" },
-      class: "bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition font-medium" %>
+      class: "form-button-submit" %>
   </div>
 <% end %>

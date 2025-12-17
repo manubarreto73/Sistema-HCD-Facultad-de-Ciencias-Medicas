@@ -1,0 +1,77 @@
+@layer components {
+  .elements-title {
+    @apply text-2xl font-semibold text-gray-800;
+  }
+
+  .elements-table {
+    @apply w-full text-left border-collapse;
+  }
+
+  .elements-header-tr {
+    @apply bg-gray-50 border-b border-gray-200 text-gray-700 text-sm uppercase;
+  }
+
+  .elements-header-tr th {
+    @apply px-6 py-3 font-semibold
+  }  
+
+  .elements-header-tr th:not(:first-child){
+    @apply text-center
+  }
+
+  .elements-header-tr th:first-child {
+    @apply w-1/2
+  }
+  
+  .elements-body {
+    @apply divide-y divide-gray-100 text-gray-700;
+  }
+
+  .elements-body tr {
+    @apply hover:bg-gray-100 transition;
+  }
+
+  .elements-body tr td {
+    @apply px-6 py-4 transition duration-300 font-medium;
+  }
+
+  .elements-body tr td:not(:first-child) {
+    @apply text-center;
+  }
+
+  .elements-body tr td:last-child {
+    @apply space-x-2;
+  }
+
+  .elements-body tr td a {
+    @apply hover:underline font-medium;
+  }
+
+  .element-form {
+    @apply space-y-4;
+  }
+
+  .element-form div label {
+    @apply block text-sm font-medium text-gray-700;
+  }
+
+  .element-form div:not(:last-child) input {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-gray-500 focus:border-gray-500;
+  }
+
+  .element-form div:last-child {
+    @apply flex justify-end space-x-2;
+  }
+  
+  .form-button-submit {
+    @apply bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition font-medium;
+  }
+
+  .form-button-cancel {
+    @apply bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition font-medium;
+  }
+
+  .agenda-button {
+    @apply rounded-md px-2 py-2 text-white font-medium;
+  }
+}

@@ -3,7 +3,7 @@
     <div class=" mb-4">
       <h2 class="modal-title">Agregar expedientes</h2>
     </div>
-    
+
     <%= form_with(model: @daily_agenda, url: attach_expedient_daily_agenda_path(@daily_agenda), method: :post, data: { turbo_frame: "_top", controller: 'expedients-form' }, class: 'grow flex flex-col') do |form| %>
 
       <div class=" rounded-xl mb-4 grow h-0 overflow-y-auto"> 
@@ -33,14 +33,13 @@
 
   <!-- Lista de seleccionados con scroll -->
         <div class="h-full flex justify-items-center place-items-center">
-          <div class=" align-middle text-sm ">Seleccionados:</div>
+          <div class="align-middle text-sm ">Seleccionados:</div>
         </div>
         <div 
           data-expedients-form-target="selectedList"
           class="flex flex-wrap gap-2 h-full overflow-y-auto p-2 rounded-md grow">
           </div>
 
-        <!-- Botones que NO se agrandan -->
         <div class="flex justify-end items-center h-full">
           <%= close_modal_button %>
           <%= form.submit "Confirmar", class: "bg-green-600 text-white font-semibold px-6 py-2 rounded-lg hover:bg-green-700 transition ml-2 whitespace-nowrap" %>

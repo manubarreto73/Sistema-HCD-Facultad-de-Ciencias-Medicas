@@ -15,3 +15,6 @@
 
 ## UPDATE: 24/11
 - Ejecutar en la consola `rails db:seed` para llenar la base de datos (se puede hacer con el servidor corriendo en otra consola, es indistinto).
+
+## UPDATE 14/11
+- Ejecutar `rails db:migrate db:seed` para actualizar la base de datos con las entidades nuevas y llenarla de destinos, temas, y expedientes.  

@@ -1,5 +1,5 @@
 class ExpedientsController < ApplicationController
-  before_action :set_expedient, only: %i[edit show update destroy treat_from_agenda delete_from_agenda mark_as_treated_modal modal_delete history]
+  before_action :set_expedient, only: %i[edit show update destroy treat_from_agenda delete_from_agenda mark_as_treated_modal modal_delete history delete_from_agenda_modal]
 
   def index
     index_params = filter_params
@@ -71,15 +71,12 @@ class ExpedientsController < ApplicationController
   def destroy
     @expedient.deleted!
     @page = params[:page].to_i
-    @expedient = nil
-    flash.now[:info] = "Expediente eliminado correctamente"
-    @expedients = ExpedientsFilter.new(Expedient.includes(:destination, :subject).all, filter_params).call
 
+    flash.now[:info] = 'Expediente eliminado correctamente'
+    @expedients = ExpedientsFilter.new(Expedient.includes(:destination, :subject).all, filter_params).call
     @treated_count = @expedients.treated.count
     @no_treated_count = @expedients.no_treated.count
-
-    @expedients =
-      params[:treated].to_s == 'true' ? @expedients.treated : @expedients.no_treated
+    @expedients = params[:treated].to_s == 'true' ? @expedients.treated : @expedients.no_treated
     paginator = Paginator.new(@expedients.order(sort_order), page: @page)
     @expedients = paginator.paginated
     if @expedients.empty? && @page > 1
@@ -113,7 +110,6 @@ class ExpedientsController < ApplicationController
     @daily_agenda_expedients = paginator.paginated
     @page = paginator.page
     @total_pages = paginator.total_pages
-    puts "Expedientes despues del treat: #{@expedients}"
     respond_to do |format|
       format.turbo_stream
       format.html { render :new }
@@ -121,12 +117,32 @@ class ExpedientsController < ApplicationController
   end
 
   def delete_from_agenda
-    @expedient.update(daily_agenda_id: nil)
-    flash.now[:notice] = "Expediente #{@expedient.file_number} eliminado de la orden del día."
+    position = @expedient.position
+    daily_agenda = @expedient.daily_agenda
 
-    respond_to do |format|
-      format.turbo_stream
-      format.html { render :new }
+    @expedient.update!(daily_agenda_id: nil, position: nil)
+    daily_agenda.reorder_positions_from!(position)
+
+    current_page = params[:page].to_i
+    current_page = 1 if current_page < 1
+
+    total_expedients = daily_agenda.expedients.count
+    per_page = Paginator::PER_PAGE
+
+    total_pages = (total_expedients / per_page.to_f).ceil
+    total_pages = 1 if total_pages.zero?
+
+    current_page = total_pages if current_page > total_pages
+
+    flash[:notice] = "Expediente #{@expedient.file_number} eliminado de la orden del día."
+
+    if daily_agenda.hcd?
+      redirect_to today_daily_agendas_path(page: current_page)
+    else
+      redirect_to destination_daily_agenda_path(
+        destination_id: daily_agenda.destination_id,
+        page: current_page
+      )
     end
   end
 
@@ -152,6 +168,22 @@ class ExpedientsController < ApplicationController
 
   def history
     puts 'hola?'
+  end
+
+  def deleted
+    index_params = filter_params
+    @expedients = Expedient.deleted.includes(:expedient_histories)
+    @expedients = ExpedientsFilter.new(@expedients, index_params).call
+
+    paginator = Paginator.new(@expedients.order(sort_order), page: params[:page])
+    @expedients = paginator.paginated.map(&:deleted_info) # map *después* de la query
+    @page = paginator.page
+    @total_pages = paginator.total_pages
+  end
+
+  def delete_from_agenda_modal
+    @page = params[:page]
+    render layout: false
   end
 
   private

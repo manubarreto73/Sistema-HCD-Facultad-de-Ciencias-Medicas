@@ -4,7 +4,7 @@
 
   <%# Botón anterior %>
   <% if page > 1 %>
-    <%= link_to "<", today_daily_agendas_path(page: page - 1, treated: params[:treated]), data: { turbo_frame: "daily_agenda_expedients", turbo_action: 'advance' },
+    <%= link_to "<", agenda_path(daily_agenda, pagination_params(page: page - 1)), data: { turbo_frame: "daily_agenda_expedients", turbo_action: 'advance' },
       class: "px-3 py-1 border rounded hover:bg-gray-100" %>
   <% else %>
     <span class="px-3 py-1 border rounded opacity-40"><</span>
@@ -40,14 +40,14 @@
     <% elsif p == page %>
       <span class="px-3 py-1 bg-gray-800 text-white rounded"><%= p %></span>
     <% else %>
-      <%= link_to p, today_daily_agendas_path(page: p, treated: params[:treated]), data: { turbo_frame: "daily_agenda_expedients", turbo_action: 'advance' },
+      <%= link_to p, agenda_path(daily_agenda, pagination_params(page: p)), data: { turbo_frame: "daily_agenda_expedients", turbo_action: 'advance' },
         class: "px-3 py-1 border rounded hover:bg-gray-100" %>
     <% end %>
   <% end %>
 
   <%# Botón siguiente %>
   <% if page < total_pages %>
-    <%= link_to ">", today_daily_agendas_path(page: page + 1, treated: params[:treated]), data: { turbo_frame: "daily_agenda_expedients", turbo_action: 'advance' },
+    <%= link_to ">", agenda_path(daily_agenda, pagination_params(page: page + 1)), data: { turbo_frame: "daily_agenda_expedients", turbo_action: 'advance' },
       class: "px-3 py-1 border rounded hover:bg-gray-100" %>
   <% else %>
     <span class="px-3 py-1 border rounded opacity-40">></span>

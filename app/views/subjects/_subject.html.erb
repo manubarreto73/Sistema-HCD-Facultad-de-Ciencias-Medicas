@@ -1,9 +1,3 @@
-<tr id="subject_<%= subject.id %>" class="hover:bg-gray-50 transition">
-  <td class="px-6 py-4 font-medium"><%= subject.name %></td>
-  <td class="px-6 py-4 text-center"><%= subject.priority %> </td>
-  <td class="px-6 py-4 text-center space-x-2">
-    <%= link_to "Editar", edit_subject_path(subject),
-        class: "text-blue-600 hover:underline font-medium", data: { turbo_frame: 'modal'} %>
-    <%= link_to 'Eliminar', modal_delete_subject_path(subject, page: params[:page], treated: params[:treated]),  class: "text-red-600 hover:underline font-medium", data: { turbo_frame: 'modal'} %>
-  </td>
+<tr id="subject_<%= subject.id %>">
+  <%= render 'row_content', subject: subject, updated: false %>
 </tr>

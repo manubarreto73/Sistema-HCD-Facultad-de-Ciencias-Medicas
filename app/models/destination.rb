@@ -8,10 +8,17 @@ class Destination < ApplicationRecord
 
   has_many :expedients, dependent: :nullify
 
+  def select_name
+    "#{name} - #{expedients.count} expedientes asociados"
+  end
 
   def logic_delete
     expedients.update_all(destination_id: nil)
     update(active: false)
     update(name: "#{name}* [DELETED]")
+  end
+
+  def hcd?
+    name == 'Honorable Consejo Directivo'
   end
 end

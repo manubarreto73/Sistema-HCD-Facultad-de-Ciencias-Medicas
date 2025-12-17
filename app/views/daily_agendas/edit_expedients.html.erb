@@ -1,0 +1,82 @@
+<div class="index-container">
+  <div class="index-background">
+    <div class="flex flex-col text-start text-2xl font-semibold text-gray-800 p-4 gap-2">
+      <% if @daily_agenda.hcd? %>
+        <%= link_to '< Volver', today_daily_agendas_path, class: 'text-sm' %>
+      <% else %>
+        <%= link_to '< Volver', destination_daily_agenda_path(destination_id: @daily_agenda.destination_id), class: 'text-sm' %>
+      <% end %>
+      <div>
+        <h2>Editar orden expedientes</h2>
+      </div>
+      <div>
+        <h2 class="text-sm italic">(Arrastrar y soltar)</h2>
+      </div>
+    </div>
+    <%= form_with url: update_expedients_order_daily_agenda_path(@daily_agenda),
+              method: :patch,
+              data: {
+                controller: "sortable",
+                action: "submit->sortable#submit"
+              } do %>
+
+      <table class="w-full text-left border-collapse mt-5">
+        <thead>
+          <tr class="bg-gray-50 border-b border-gray-200 text-gray-700 text-sm uppercase">
+            <th class="px-3 py-3 w-10"></th>
+            <th class="px-6 py-3 font-semibold text-center w-24">Posición</th>
+            <th class="px-6 py-3 font-semibold">Número de expediente</th>
+            <th class="px-6 py-3 font-semibold text-center">Tema</th>
+            <th class="px-6 py-3 font-semibold text-center">Destino</th>
+            <th class="px-6 py-3 font-semibold text-center">Responsable</th>
+          </tr>
+        </thead>
+
+        <tbody
+          class="divide-y divide-gray-100 text-gray-700"
+          data-sortable-target="list"
+        >
+          <% @expedients.order(:position).each do |expedient| %>
+            <tr
+              data-sortable-id-value="<%= expedient.id %>"
+              data-action="
+                dragover->sortable#dragover
+                drop->sortable#drop
+                dragend->sortable#dragend
+              "
+              class="hover:bg-gray-50 transition-all duration-200"
+            >
+              <td class="text-center text-2xl cursor-move"
+                  draggable="true"
+                  data-action="dragstart->sortable#dragstart">
+                ↕
+              </td>
+
+              <td class="text-center"><%= expedient.position %></td>
+              <td class="px-6 py-4 font-medium"><%= expedient.file_number %></td>
+              <td class="text-center"><%= expedient.subject&.name || 'Sin tema' %></td>
+              <td class="text-center"><%= expedient.destination&.name || 'Sin destino' %></td>
+              <td class="text-center"><%= expedient.responsible %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+    <%= hidden_field_tag "order", "", data: { sortable_target: "order" } %>
+
+    <div class="mt-4 flex justify-end p-5">
+      <span
+        class="mr-3 text-xs bg-blue-500 text-white border rounded-xl flex items-center px-2 hidden"
+        data-sortable-target="dirtyBadge"
+      >
+        ¡Orden modificada!
+      </span>
+     <%= submit_tag "Guardar cambios",
+        class: "bg-primary-color text-white px-4 py-2 rounded opacity-50 cursor-not-allowed",
+        disabled: true,
+        data: { sortable_target: "submit" } %>
+
+    </div>
+  <% end %>
+  </div>
+</div>

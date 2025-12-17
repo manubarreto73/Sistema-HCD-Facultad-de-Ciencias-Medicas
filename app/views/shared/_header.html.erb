@@ -8,6 +8,7 @@
 
     <nav class="space-x-4 flex items-center">
       <%= header_button('Orden del día', today_daily_agendas_path(treated: false)) %>
+      <%= header_button('Orden de destino', daily_agenda_index_destinations_path) %>
       <%= header_button('Expedientes', expedients_path(treated: false)) %>
       <%= header_button('Destinos', destinations_path) %>
       <%= header_button('Temas', subjects_path) %>

@@ -1,8 +1,8 @@
 <div class="index-container">
   <div class="index-background">
     <div class="index-title-container">
-      <h2 class="text-2xl font-semibold text-gray-800">Temas</h2>
-      <%= new_modal_button('Nuevo tema', new_subject_path) %>
+      <h2 class="elements-title">Temas</h2>
+      <%= new_modal_button('Nuevo tema', new_subject_path(page: params[:page])) %>
     </div>
 
     <%= turbo_frame_tag "subjects" do %>

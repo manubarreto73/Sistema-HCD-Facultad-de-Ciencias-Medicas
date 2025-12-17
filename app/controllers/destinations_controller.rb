@@ -83,6 +83,14 @@ class DestinationsController < ApplicationController
     render layout: false
   end
 
+  def daily_agenda_index
+    @destinations = Destination.actives.where.not(name: 'Honorable Consejo Directivo')
+
+    return unless params[:destination_id].present?
+
+    redirect_to destination_daily_agenda_path(destination_id: params[:destination_id])
+  end
+
   private
 
   def set_destination

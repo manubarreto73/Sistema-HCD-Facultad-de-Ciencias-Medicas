@@ -1,0 +1,6 @@
+<td class="<%= 'updating-bg' if updated %>"><%= subject.name %></td>
+<td class="<%= 'updating-bg' if updated %>" ><%= subject.priority %> </td>
+<td class="space-x-2 <%= 'updating-bg' if updated %>">
+  <%= link_to "Editar", edit_subject_path(subject), data: { turbo_frame: 'modal'} %>
+  <%= link_to 'Eliminar', modal_delete_subject_path(subject, page: params[:page], treated: params[:treated]),  data: { turbo_frame: 'modal'} %>
+</td>
