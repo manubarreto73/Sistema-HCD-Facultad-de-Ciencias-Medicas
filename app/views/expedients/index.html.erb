@@ -7,8 +7,8 @@
     <%= render 'filter' %>
     <div class="flex justify-between mt-2">
       <div class="flex space-x-2">
-        <%= tab_button(text: "No tratados", count: @no_treated_count, path: pagination_params(treated: false)) %>
-        <%= tab_button(text: "Tratados", count: @treated_count, path: pagination_params(treated: true)) %>
+        <%= tab_button(text: "No resueltos", count: @no_treated_count, path: pagination_params(treated: false)) %>
+        <%= tab_button(text: "Resueltos", count: @treated_count, path: pagination_params(treated: true)) %>
       </div>
 
       <div class="flex space-x-2">

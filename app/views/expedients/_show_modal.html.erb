@@ -37,7 +37,7 @@
 
   <!-- Opinión -->
   <div class="col-span-2">
-    <label class="text-sm font-semibold text-gray-600">Opinión</label>
+    <label class="text-sm font-semibold text-gray-600">Dictamen</label>
     <p class="mt-1 bg-gray-100 rounded px-3 py-2 whitespace-pre-line">
       <%= expedient.opinion.presence || "—" %>
     </p>
@@ -45,26 +45,21 @@
 
   <!-- Fecha -->
   <div>
-    <label class="text-sm font-semibold text-gray-600">Fecha de creación</label>
+    <label class="text-sm font-semibold text-gray-600">Fecha de carga</label>
     <p class="mt-1 bg-gray-100 rounded px-3 py-2">
       <%= expedient.creation_date&.strftime("%d/%m/%Y") %>
     </p>
   </div>
 
+  <% if expedient.treated? %>
   <div>
     <label class="text-sm font-semibold text-gray-600">Fecha de tratado</label>
     <p class="mt-1 bg-gray-100 rounded px-3 py-2">
       <i> <%=  expedient.treat_date&.strftime("%d/%m/%Y") || 'Aún no tratado' %> </i> 
     </p>
   </div>
+  <%end%>
 
-  <!-- Estado -->
-  <div>
-    <label class="text-sm font-semibold text-gray-600">Estado</label>
-    <p class="mt-1 bg-gray-100 rounded px-3 py-2 capitalize">
-      <%= expedient.status %>
-    </p>
-  </div>
 
   <!-- Destination -->
   <div>
@@ -76,7 +71,7 @@
 
   <!-- Subject -->
   <div>
-    <label class="text-sm font-semibold text-gray-600">Asunto</label>
+    <label class="text-sm font-semibold text-gray-600">Tema</label>
     <p class="mt-1 bg-gray-100 rounded px-3 py-2">
       <%= expedient.subject&.name || 'Sin tema' %>
     </p>

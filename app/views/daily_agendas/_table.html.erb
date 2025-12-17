@@ -2,11 +2,12 @@
   <thead>
     <tr class="bg-gray-50 border-b border-gray-200 text-gray-700 text-sm uppercase">
       <th class="px-6 py-3 font-semibold"> <%= sortable('file_number', 'Número') %> </th>
-      <th class="px-6 py-3 font-semibold text-center"> <%= sortable('subjects.name', 'Tema') %> </th>      
-      <th class="px-6 py-3 font-semibold text-center"> <%= sortable('destinations.name', 'Destino') %> </th>
-      <th class="px-6 py-3 font-semibold text-center">Responsable</th>
-      <% if params[:treated] == 'true' %>
-        <th class="px-6 py-3 font-semibold text-center">Fecha tratado</th>
+      <th class="px-6 py-3 font-semibold text-center"> <%= sortable('subjects.name', 'Tema (prioridad)') %> </th>     
+      <% if @daily_agenda.hcd? %> 
+        <th class="px-6 py-3 font-semibold text-center"> <%= sortable('destinations.name', 'Destino') %> </th>
+        <th class="px-6 py-3 font-semibold text-center">Responsable</th>
+      <% else %>
+        <th class="px-6 py-3 font-semibold text-center">Dictamen</th>
       <% end %>
       <th class="px-6 py-3 font-semibold text-center">Acciones</th>
     </tr>

@@ -69,7 +69,7 @@ class ExpedientsController < ApplicationController
   end
 
   def destroy
-    @expedient.deleted!
+    @expedient.logic_delete(current_user)
     @page = params[:page].to_i
 
     flash.now[:info] = 'Expediente eliminado correctamente'
@@ -154,7 +154,7 @@ class ExpedientsController < ApplicationController
   def download_pdf
     treated = params[:treated] == 'true'
     @expedients = Expedient.where(treated: treated)
-    title = treated ? 'Expedientes tratados' : 'Expedientes no tratados'
+    title = treated ? 'Resueltos' : 'Expedientes no resueltos'
     respond_to do |format|
       format.pdf do
         render pdf: title, template: 'expedients/expedients_pdf'

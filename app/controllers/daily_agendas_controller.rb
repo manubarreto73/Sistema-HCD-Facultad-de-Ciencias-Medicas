@@ -90,7 +90,7 @@ class DailyAgendasController < ApplicationController
     @daily_agenda.solve
     flash[:notice] = 'La orden del día fue marcada como tratada correctamente'
     @daily_agenda = DailyAgenda.next_daily_agenda(@daily_agenda.destination)
-    @daily_count = DailyAgenda.where(date: Date.today, destiation: @daily_agenda.destination).count
+    @daily_count = DailyAgenda.where(date: Date.today, destination: @daily_agenda.destination).count
     paginator = Paginator.new(@daily_agenda.expedients.ordered, page: params[:page])
     @daily_agenda_expedients = paginator.paginated
     @page = paginator.page
@@ -111,6 +111,7 @@ class DailyAgendasController < ApplicationController
 
   def attach_expedient
     @daily_agenda = DailyAgenda.find(params[:id])
+    @daily_count = DailyAgenda.where(date: Date.today, destination: @daily_agenda.destination).count
     @expedients = Expedient.where(id: params[:expedient_ids])
     @daily_agenda.add_expedients!(@expedients)
     @expedients.update_all(daily_agenda_id: @daily_agenda.id)

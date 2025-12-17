@@ -3,16 +3,17 @@
     <%= turbo_frame_tag 'today_daily_agenda_header' do %>
     <div class="index-title-container justify-between">
       <div class="w-2/3">
-        <h2 class="text-2xl font-semibold text-gray-800">Orden del día #<%= @daily_agenda.id %> <%= "(#{@daily_count})" if @daily_count > 1 %></h2>
+        <h2 class="text-2xl font-semibold text-gray-800"><%= @daily_agenda.hcd? ? 'Orden del día' : 'Orden del destino' %> # <%= @daily_agenda.id %> <%= "(#{@daily_count})" if @daily_count > 1 %></h2>
       </div>
 
       <div  class="w-full flex justify-end space-x-2 flex-wrap">
-       
+      <% if @daily_agenda.expedients.any? %>
         <% if @daily_agenda.hcd? %>
           <%= link_to 'Marcar como tratada', mark_as_treated_modal_daily_agenda_path(@daily_agenda), data: { turbo_frame: 'modal' }, class: 'agenda-button bg-primary-color' %>
         <% else %>
           <%= link_to 'Marcar como tratada', destination_daily_agendas_treat_path(@daily_agenda), data: { turbo_frame: "_top" }, class: 'agenda-button bg-primary-color' %>
         <% end %>
+      <% end %>
         <%= link_to 'Editar fecha', edit_daily_agenda_path(@daily_agenda), data: { turbo_frame: 'modal' }, class: 'agenda-button bg-primary-color' %>
         <%= link_to 'Ver ordenes tratadas', destination_daily_agendas_treated_path(@daily_agenda.destination.id), class: 'agenda-button bg-primary-color', data: { turbo: false } %>
         <%= link_to 'Descargar orden del día', download_pdf_daily_agenda_path(@daily_agenda, format: :pdf), class: 'agenda-button bg-primary-color' %>
@@ -22,8 +23,8 @@
      
     <div class="flex mt-2 justify-between">
       <div class="flex space-x-2 pr-2">
-        <%= tab_button_agenda(text: "No tratados", count: @no_treated_count, path: agenda_path(@daily_agenda, pagination_params_agenda(treated: false)), treated: false) %>
-        <%= tab_button_agenda(text: "Tratados", count: @treated_count, path: agenda_path(@daily_agenda, pagination_params_agenda(treated: true)), treated: true) %>
+        <%= tab_button_agenda(text: "No resueltos", count: @no_treated_count, path: agenda_path(@daily_agenda, pagination_params_agenda(treated: false)), treated: false) %>
+        <%= tab_button_agenda(text: "Resueltos", count: @treated_count, path: agenda_path(@daily_agenda, pagination_params_agenda(treated: true)), treated: true) %>
       </div>
 
       <div class="flex space-x-2 pr-2">

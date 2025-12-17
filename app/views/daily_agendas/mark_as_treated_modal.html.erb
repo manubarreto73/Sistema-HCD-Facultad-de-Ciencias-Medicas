@@ -2,7 +2,7 @@
    <div class="modal-container animate-scale-in space-y-2">
     <h2 class="modal-title">¿Marcar orden del día como tratada?</h2>
     <div class="p-4 text-lg text-gray-600">
-      Los siguientes expedientes pasarán como tratados:
+      Los siguientes expedientes pasarán como resueltos:
     </div>
     <% @daily_agenda.expedients.no_treated.each do |exp| %>
       <div><%= exp.file_number %></div>

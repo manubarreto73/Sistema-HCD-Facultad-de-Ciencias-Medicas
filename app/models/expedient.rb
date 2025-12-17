@@ -10,7 +10,7 @@ class Expedient < ApplicationRecord
 
   validates :file_number, uniqueness: { message: 'El número de expediente ya existe' }
   validates :file_number, presence: { message: 'El número de expediente no puede estar vacío' }
-  validates :file_number, length: { minimum: 19, message: 'El número de expediente es corto' }
+  validates :file_number, length: { minimum: 22, message: 'El número de expediente es corto' }
   validates :responsible, length: { maximum: 50, message: 'El nombre del responsable es muy largo (máximo 30 carácteres)' }
   validates :responsible, presence: { message: 'El responsable no puede estar vacío' }
   validates :opinion, length: { maximum: 200, message: 'El dictámen es muy largo (máximo 200 caracteres)' }
@@ -121,7 +121,10 @@ class Expedient < ApplicationRecord
       elsif key == 'destination_id'
         old_value = Destination.find(change[1][0]).name
         new_value = destination.name
-      else
+      elsif key == 'creation_date'
+        old_value = change[1][0].in_time_zone.strftime("%Y-%m-%d")
+        new_value = change[1][1].in_time_zone.strftime("%d-%m-%Y")
+      else 
         old_value = change[1][0]
         new_value = change[1][1]
       end
