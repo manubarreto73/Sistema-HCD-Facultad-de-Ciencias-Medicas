@@ -103,6 +103,32 @@ class DailyAgendasController < ApplicationController
     end
   end
 
+  def download_pdf
+  @title = "Orden del día #{@daily_agenda.date.strftime('%d/%m/%Y')}"
+
+  @no_treated = @daily_agenda.expedients
+                             .includes(:subject, :destination)
+                             .no_treated
+                             .order(:position)
+
+  @treated = @daily_agenda.expedients
+                          .includes(:subject, :destination)
+                          .treated
+                          .order(:position)
+
+  respond_to do |format|
+    format.pdf do
+      render pdf: @title.parameterize,
+             template: 'daily_agendas/daily_agenda_pdf',
+             layout: 'pdf',
+             encoding: 'UTF-8'
+    end
+  end
+end
+
+
+
+
   def add_expedients
     @daily_agenda = DailyAgenda.find(params[:id])
     @expedients = Expedient.for_destination(@daily_agenda.destination).by_subject_priority
@@ -128,14 +154,6 @@ class DailyAgendasController < ApplicationController
     end
   end
 
-  def download_pdf
-    title = "Orden del día #{@daily_agenda.date}"
-    respond_to do |format|
-      format.pdf do
-        render pdf: title, template: 'daily_agendas/daily_agenda_pdf'
-      end
-    end
-  end
 
   def mark_as_treated_modal
     render layout: false

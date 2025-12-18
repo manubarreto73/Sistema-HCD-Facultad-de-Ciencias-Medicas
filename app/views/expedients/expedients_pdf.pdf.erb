@@ -1,1 +1,33 @@
-<div>test</div>
+<h1><%= @title %></h1>
+
+<p>
+  Fecha de emisión: <%= Time.current.strftime('%d/%m/%Y') %>
+</p>
+
+<table border="1" cellspacing="0" cellpadding="5" width="100%">
+  <thead>
+    <tr>
+      <th>Número</th>
+      <th>Tema</th>
+      <th>Destino</th>
+      <th>Responsable</th>
+      <th>Estado</th>
+      <th>Fecha creación</th>
+      <th>Fecha tratado</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @expedients.each do |expedient| %>
+      <tr>
+        <td><%= expedient.file_number %></td>
+        <td><%= expedient.subject&.name %></td>
+        <td><%= expedient.destination&.name %></td>
+        <td><%= expedient.responsible %></td>
+        <td><%= expedient.status %></td>
+        <td><%= expedient.creation_date&.strftime('%d/%m/%Y') %></td>
+        <td><%= expedient.treat_date&.strftime('%d/%m/%Y') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

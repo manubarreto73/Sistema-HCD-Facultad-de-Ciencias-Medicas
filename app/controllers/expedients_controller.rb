@@ -92,6 +92,26 @@ class ExpedientsController < ApplicationController
     end
   end
 
+  def download_pdf
+  treated = params[:treated] == 'true'
+
+  @expedients = Expedient
+                  .includes(:subject, :destination)
+                  .where(file_status: treated ? :treated : :no_treated)
+                  .order(:file_number)
+
+  @title = treated ? 'Expedientes resueltos' : 'Expedientes no resueltos'
+
+  respond_to do |format|
+    format.pdf do
+      render pdf: @title.parameterize,
+       template: 'expedients/expedients_pdf',
+       layout: 'pdf',
+       encoding: 'UTF-8'
+    end
+  end
+end
+
   def treat_from_agenda
     @expedient.treated!
     @expedient.update(treat_date: Date.today)
@@ -151,16 +171,6 @@ class ExpedientsController < ApplicationController
     render layout: false
   end
 
-  def download_pdf
-    treated = params[:treated] == 'true'
-    @expedients = Expedient.where(treated: treated)
-    title = treated ? 'Resueltos' : 'Expedientes no resueltos'
-    respond_to do |format|
-      format.pdf do
-        render pdf: title, template: 'expedients/expedients_pdf'
-      end
-    end
-  end
 
   def mark_as_treated_modal
     render layout: false

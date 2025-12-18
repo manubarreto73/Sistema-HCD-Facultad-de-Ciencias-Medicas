@@ -1,1 +1,71 @@
-<div>test</div>
+<h1><%= @title %></h1>
+
+<p>
+  <strong>Fecha:</strong>
+  <%= @daily_agenda.date.strftime('%d/%m/%Y') %>
+</p>
+
+<hr>
+
+<h2>No resueltos</h2>
+
+<% no_treated = @no_treated.to_a %>
+
+<% if no_treated.any? %>
+  <table width="100%" cellspacing="0" cellpadding="5" border="1">
+    <thead>
+      <tr>
+        <th>Número</th>
+        <th>Tema (Prioridad)</th>
+        <th>Destino</th>
+        <th>Responsable</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% no_treated.each do |exp| %>
+        <tr>
+          <td><%= exp.file_number %></td>
+          <td>
+            <%= exp.subject&.name %>
+            (<%= exp.subject&.priority %>)
+          </td>
+          <td><%= exp.destination&.name %></td>
+          <td><%= exp.responsible.presence || '-' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No hay expedientes no resueltos.</p>
+<% end %>
+
+<hr>
+
+<h2>Resueltos</h2>
+
+<% treated = @treated.to_a %>
+
+<% if treated.any? %>
+  <table width="100%" cellspacing="0" cellpadding="5" border="1">
+    <thead>
+      <tr>
+        <th>Número</th>
+        <th>Tema</th>
+        <th>Destino</th>
+        <th>Responsable</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% treated.each do |exp| %>
+        <tr>
+          <td><%= exp.file_number %></td>
+          <td><%= exp.subject&.name %></td>
+          <td><%= exp.destination&.name %></td>
+          <td><%= exp.responsible.presence || '-' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No hay expedientes tratados.</p>
+<% end %>
