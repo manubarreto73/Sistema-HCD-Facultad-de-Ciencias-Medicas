@@ -3,7 +3,7 @@
     <%= turbo_frame_tag 'today_daily_agenda_header' do %>
     <div class="index-title-container justify-between">
       <div class="w-2/3">
-        <h2 class="text-2xl font-semibold text-gray-800"><%= @daily_agenda.hcd? ? 'Orden del día' : 'Orden del destino' %> # <%= @daily_agenda.id %> <%= "(#{@daily_count})" if @daily_count > 1 %></h2>
+        <h2 class="text-2xl font-semibold text-gray-800"><%= @daily_agenda.hcd? ? 'Orden del día' : 'Orden del destino' %> <%= @daily_agenda.date %> </h2>
       </div>
 
       <div  class="w-full flex justify-end space-x-2 flex-wrap">
@@ -24,7 +24,7 @@
     <div class="flex mt-2 justify-between">
       <div class="flex space-x-2 pr-2">
         <%= tab_button_agenda(text: "No resueltos", count: @no_treated_count, path: agenda_path(@daily_agenda, pagination_params_agenda(treated: false)), treated: false) %>
-        <%= tab_button_agenda(text: "Resueltos", count: @treated_count, path: agenda_path(@daily_agenda, pagination_params_agenda(treated: true)), treated: true) %>
+        <%= tab_button_agenda(text: "Historial", count: @treated_count, path: agenda_path(@daily_agenda, pagination_params_agenda(treated: true)), treated: true) %>
       </div>
 
       <div class="flex space-x-2 pr-2">

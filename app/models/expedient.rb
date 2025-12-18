@@ -128,7 +128,7 @@ class Expedient < ApplicationRecord
         old_value = change[1][0]
         new_value = change[1][1]
       end
-      description << " #{FIELD_TRANSLATIONS[key]} (#{old_value}, #{new_value}). "
+      description << " #{FIELD_TRANSLATIONS[key]} (#{old_value}, #{new_value}).\n"
     end
 
     expedient_histories.create(action: 1, description: description, user: current_user)

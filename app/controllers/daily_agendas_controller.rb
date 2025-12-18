@@ -45,15 +45,8 @@ class DailyAgendasController < ApplicationController
     flash[:notice] = 'Orden de destino tratada'
     redirect_to destination_daily_agenda_path(destination_id: @daily_agenda.destination.id)
   end
-
-  # 3176-89421933/9917-174
-  # 8561-56138954/5926-450
-  # 5052-80158179/1058-905
-
   def today
-    
     @daily_agenda = DailyAgenda.next_daily_agenda(@destination)
-    @daily_count = DailyAgenda.where(date: Date.today, destination: @destination).count
     index_params = filter_params
     @expedients = ExpedientsFilter.new(@daily_agenda.expedients.includes(:destination, :subject), index_params).call.ordered
     @treated_count = @expedients.treated.count
@@ -90,7 +83,6 @@ class DailyAgendasController < ApplicationController
     @daily_agenda.solve
     flash[:notice] = 'La orden del día fue marcada como tratada correctamente'
     @daily_agenda = DailyAgenda.next_daily_agenda(@daily_agenda.destination)
-    @daily_count = DailyAgenda.where(date: Date.today, destination: @daily_agenda.destination).count
     paginator = Paginator.new(@daily_agenda.expedients.ordered, page: params[:page])
     @daily_agenda_expedients = paginator.paginated
     @page = paginator.page
@@ -137,7 +129,6 @@ end
 
   def attach_expedient
     @daily_agenda = DailyAgenda.find(params[:id])
-    @daily_count = DailyAgenda.where(date: Date.today, destination: @daily_agenda.destination).count
     @expedients = Expedient.where(id: params[:expedient_ids])
     @daily_agenda.add_expedients!(@expedients)
     @expedients.update_all(daily_agenda_id: @daily_agenda.id)

@@ -4,9 +4,13 @@
 <td class="text-center <%= "bg-slate-400 transition" if updated %>"><%= expedient.responsible %></td>
 <% if expedient.treated? %>
   <td class="text-center <%= "bg-slate-400 transition" if updated %>"><%= expedient.treat_date.to_date %></td>
+<% else %>
+  <td class="text-center <%= "bg-slate-400 transition" if updated %>"><%= expedient.creation_date.to_date %></td>
 <% end %>
 <td class="px-6 py-4 text-center space-x-2 <%= "bg-slate-400 transition" if updated %>">
   <%= link_to "Ver", expedient_path(expedient), data: { turbo_frame: "modal" }, class: "hover:underline font-medium" %>
   <%= link_to "Editar", edit_expedient_path(expedient), class: "hover:underline font-medium", data: { turbo_frame: "modal" } %>
-  <%= link_to "Eliminar", modal_delete_expedient_path(expedient, pagination_params(page: params[:page])),  class: "hover:underline font-medium", data: { turbo_frame: 'modal'} %>
+  <% unless expedient.daily_agenda %>
+    <%= link_to "Eliminar", modal_delete_expedient_path(expedient, pagination_params(page: params[:page])),  class: "hover:underline font-medium", data: { turbo_frame: 'modal'} %>
+  <% end %>
 </td>

@@ -4,7 +4,7 @@
   }
 
   .elements-table {
-    @apply w-full text-left border-collapse;
+    @apply w-full text-left border-collapse table-fixed;
   }
 
   .elements-header-tr {
@@ -12,7 +12,7 @@
   }
 
   .elements-header-tr th {
-    @apply px-6 py-3 font-semibold
+    @apply px-6 py-3 font-semibold w-1/4
   }  
 
   .elements-header-tr th:not(:first-child){

@@ -1,4 +1,4 @@
-<table class="w-full text-left border-collapse">
+<table class="table-expedients">
   <thead>
     <tr class="bg-gray-50 border-b border-gray-200 text-gray-700 text-sm uppercase">
       <th class="px-6 py-3 font-semibold"> <%= sortable('file_number', 'Número') %> </th>
@@ -7,6 +7,8 @@
       <th class="px-6 py-3 font-semibold text-center">Responsable</th>
       <% if params[:treated] == 'true' %>
         <th class="px-6 py-3 font-semibold text-center">Fecha tratado</th>
+      <% else %>
+        <th class="px-6 py-3 font-semibold text-center">Fecha de carga</th>
       <% end %>
       <th class="px-6 py-3 font-semibold text-center">Acciones</th>
     </tr>

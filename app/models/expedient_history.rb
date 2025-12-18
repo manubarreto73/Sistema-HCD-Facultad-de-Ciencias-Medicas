@@ -18,4 +18,12 @@ class ExpedientHistory < ApplicationRecord
       'Borrado'
     end
   end
+
+  def title
+    description.split(': ').first.concat(':')
+  end
+
+  def rows
+    description.split(': ').last.split("\n ")
+  end
 end
