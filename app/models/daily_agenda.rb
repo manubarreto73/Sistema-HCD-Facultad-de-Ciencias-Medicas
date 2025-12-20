@@ -31,11 +31,11 @@ class DailyAgenda < ApplicationRecord
   end
 
   def self.next_daily_agenda(destination)
-    today_agendas = where(date: Date.today, destination: destination)
-    exists = today_agendas.any?
+    agendas = where(destination: destination)
+    exists = agendas.any?
     return create(date: Date.today, destination: destination) unless exists
 
-    not_treated = today_agendas.find { |d| !d.treated? }
+    not_treated = agendas.find { |d| !d.treated? }
     not_treated || create(date: Date.today, destination: destination)
   end
 
