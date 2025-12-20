@@ -1,0 +1,26 @@
+<script>
+  function number_pages() {
+    var vars = {};
+    // Extrae los parámetros de la URL que inyecta wkhtmltopdf
+    var query_strings_from_url = document.location.search.substring(1).split('&');
+    for (var query_string in query_strings_from_url) {
+        var temp_var = query_strings_from_url[query_string].split('=', 2);
+        vars[temp_var[0]] = decodeURIComponent(temp_var[1]);
+    }
+    
+    // Mapea los valores a los elementos con clases específicas
+    var keys = ['page', 'topage'];
+    for (var key in keys) {
+        var elements = document.getElementsByClassName(keys[key]);
+        for (var i = 0; i < elements.length; ++i) {
+            elements[i].textContent = vars[keys[key]];
+        }
+    }
+  }
+</script>
+
+<body onload="number_pages()">
+  <div style="text-align: center; font-size: 12px; border-top: 1px solid #ccc; padding-top: 5px;">
+    Página <span class="page"></span> de <span class="topage"></span>
+  </div>
+</body>
