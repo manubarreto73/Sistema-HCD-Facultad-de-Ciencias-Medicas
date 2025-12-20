@@ -128,6 +128,7 @@ end
   end
 
   def attach_expedient
+    permitted = params.permit(:id, :page, expedient_ids: [])
     @daily_agenda = DailyAgenda.find(params[:id])
     @expedients = Expedient.where(id: params[:expedient_ids])
     @daily_agenda.add_expedients!(@expedients)
@@ -233,7 +234,7 @@ end
       if params[:destination_id].present?
         Destination.find(params[:destination_id])
       else
-        Destination.find_by(name: 'Honorable Consejo Directivo')
+        Destination.find_by(is_hcd: true)
       end
   end
 end

@@ -10,6 +10,11 @@
     <%= f.label :is_commission, "¿Es comisión?", class: "text-sm text-gray-700" %>
   </div>
 
+  <div class="flex space-x-2">
+    <%= f.check_box :is_hcd, class: "h-4 w-4 text-gray-600 border-gray-300 rounded" %>
+    <%= f.label :is_hcd, "¿Es el Honorable Consejo Directivo?", class: "text-sm text-gray-700" %>
+  </div>
+
   <div>
     <%= close_modal_button %>
     <%= f.submit (destination.new_record? ? "Crear destino" : "Actualizar destino"),

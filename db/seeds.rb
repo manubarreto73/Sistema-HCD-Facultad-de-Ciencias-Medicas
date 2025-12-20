@@ -26,8 +26,8 @@ Destination.delete_all
 subjects_import = (1..15).map { |i| { name: "Tema #{i}", priority: rand(20) } }
 Subject.create(subjects_import)
 
-hcd = Destination.create(name: 'Honorable Consejo Directivo')
-destinations_import = (1..15).map { |i| { name: "Destino #{i}", is_commission: [true, false].sample } }
+hcd = Destination.create(name: 'Honorable Consejo Directivo', is_hcd: true)
+destinations_import = (1..15).map { |i| { name: "Destino #{i}", is_commission: [true, false].sample, is_hcd: false } }
 Destination.create(destinations_import)
 
 responsibles = ['Responsable 1', 'Responsable 2', 'Responsable 3', 'Responsable 4', 'Responsable 5']

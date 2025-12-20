@@ -2,9 +2,9 @@
 
 # Esta clase busca centralizar los botones y ahorrar código
 module ButtonHelper
-  CLOSE_BUTTON_CLASS = 'bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition font-medium'
+  CLOSE_BUTTON_CLASS = 'bg-primary-color text-white px-4 py-2 rounded-lg transition font-medium'
   NEW_BUTTON_CLASS   = 'bg-primary-color text-white px-4 py-2 rounded-lg transition font-medium'
-  DELETE_BUTTON_CLASS = 'bg-primary-color text-white px-4 py-2 rounded-lg transition font-medium'
+  DELETE_BUTTON_CLASS = 'bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition font-medium'
   ACTIVE_TAB         = 'px-4 py-2 rounded-t-md text-sm font-semibold transition bg-gray-100 text-gray-900'
   NON_ACTIVE_TAB     = 'px-4 py-2 rounded-t-md text-sm font-semibold transition bg-gray-300 text-gray-600 hover:bg-gray-200'
 

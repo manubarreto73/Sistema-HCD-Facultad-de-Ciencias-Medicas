@@ -7,6 +7,8 @@ class DailyAgenda < ApplicationRecord
          dependent: :destroy
 
   def solve
+    update!(number: destination.number_of_agendas)
+    destination.add_agenda
     expedients.update_all(file_status: 'treated', treat_date: Date.today)
   end
 
@@ -25,7 +27,7 @@ class DailyAgenda < ApplicationRecord
   end
 
   def hcd?
-    destination.name == 'Honorable Consejo Directivo'
+    destination&.is_hcd? || false
   end
 
   def self.next_daily_agenda(destination)
@@ -38,6 +40,7 @@ class DailyAgenda < ApplicationRecord
   end
 
   def add_expedient!(expedient)
+    
     transaction do
       insert_position = calculate_position_for(expedient)
 

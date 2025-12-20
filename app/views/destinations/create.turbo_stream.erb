@@ -2,7 +2,7 @@
   
   <%= render "table", destinations: @destinations %>
   <div class="p-10">
-     <%= render "shared/pagination_destinations", page: @page, total_pages: @total_pages %>
+     <%= render "shared/pagination_destinations", page: @page, total_pages: @total_pages%>
   </div>
 <% end %>
 <%= turbo_stream.update "modal", "" %>

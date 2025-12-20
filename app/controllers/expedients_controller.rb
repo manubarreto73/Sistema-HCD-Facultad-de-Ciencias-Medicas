@@ -147,7 +147,8 @@ end
     current_page = 1 if current_page < 1
 
     total_expedients = daily_agenda.expedients.count
-    per_page = Paginator::PER_PAGE
+    paginator = Paginator.new(Expedient.order(:file_number), page: params[:page])
+    per_page = paginator.per_page
 
     total_pages = (total_expedients / per_page.to_f).ceil
     total_pages = 1 if total_pages.zero?

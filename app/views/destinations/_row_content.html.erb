@@ -1,5 +1,5 @@
 <td class="<%= 'updating-bg' if updated %> "><%= destination.name %></td>
-<td class="<%= 'updating-bg' if updated %> ">  <%= destination.is_commission ? 'Si' : 'No' %>  </td>
+<td class="<%= 'updating-bg' if updated %> ">  <%= destination.is_hcd ? 'HCD' : destination.is_commission ? 'Si' : 'No' %>  </td>
 <td class="space-x-2 <%= 'updating-bg' if updated %> ">
   <%= link_to "Editar", edit_destination_path(destination), data: { turbo_frame: "modal" } %>
   <% unless destination.expedients.any? %>

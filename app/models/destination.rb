@@ -18,7 +18,7 @@ class Destination < ApplicationRecord
     update(name: "#{name}* [DELETED]")
   end
 
-  def hcd?
-    name == 'Honorable Consejo Directivo'
+  def add_agenda
+    increment!(:number_of_agendas)
   end
 end

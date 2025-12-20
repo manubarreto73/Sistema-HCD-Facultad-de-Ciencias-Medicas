@@ -6,7 +6,7 @@ export default class extends Controller {
   connect() {
     const treated_div = document.getElementById('resueltos');
     const no_treated_div = document.getElementById('no_resueltos');
-    console.log(this.treatedValue)
+    console.log("AAA", this.treatedValue, this.notTreatedValue)
     if (this.treatedValue == 0) {
       treated_div.textContent = 'Resueltos';
     } else {

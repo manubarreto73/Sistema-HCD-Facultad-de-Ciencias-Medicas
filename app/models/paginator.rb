@@ -1,10 +1,9 @@
 class Paginator
-  PER_PAGE = 15
   attr_reader :items, :page, :per_page, :total_pages
 
-  def initialize(scope, page:)
+  def initialize(scope, page:, per_page: 9)
     @items = scope
-    @per_page = PER_PAGE
+    @per_page = per_page
     @page = valid_page(page)
   end
 

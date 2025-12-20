@@ -31,15 +31,18 @@ module ApplicationHelper
   end
 
   def agenda_path(daily_agenda, options = {})
-    if daily_agenda.hcd?
-      today_daily_agendas_path(params: options)
-    else
-      destination_daily_agenda_path(destination_id: daily_agenda.destination.id, params: options)
-    end
+    return today_daily_agendas_path(params: options) if daily_agenda.hcd?
+
+    return today_daily_agendas_path(params: options) unless daily_agenda.destination.present?
+
+    destination_daily_agenda_path(
+      destination_id: daily_agenda.destination.id,
+      params: options
+    )
   end
 
   def index_treated_title(destination)
-    if destination.hcd?
+    if destination.is_hcd
       'Ordenes del día tratadas'
     else
       "Ordenes del destino #{destination.name} tratadas"

@@ -1,5 +1,7 @@
 <%= turbo_stream.update "modal", "" %>
+
 <%= turbo_stream.update 'today_daily_agenda_header' do %>
+
     <div class="index-title-container justify-between">
       <div class="w-2/3">
         <h2 class="text-2xl font-semibold text-gray-800">Orden del día #<%= @daily_agenda.id %></h2>
@@ -19,6 +21,7 @@
       </div>
     </div>
     <% end %>
+
 <%= turbo_stream.update "daily_agenda_expedients" do %>
   <%= render "table", expedients: @daily_agenda_expedients %>
   <div class="p-10">
@@ -28,5 +31,3 @@
 
 <%= turbo_stream.update("flash-container", partial: "shared/flash") %>
 <% flash.discard %>
-
-<div hidden data-controller="counter" data-counter-treated-value="<%= @treated_count %>" data-counter-not-treated-value="<%= @no_treated_count %>"></div>

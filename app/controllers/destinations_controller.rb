@@ -2,7 +2,7 @@ class DestinationsController < ApplicationController
   before_action :set_destination, only: %i[edit update destroy modal_delete]
 
   def index
-    paginator = Paginator.new(Destination.actives.order(:name), page: params[:page])
+    paginator = Paginator.new(Destination.actives.order(:name), page: params[:page], per_page: 9)
     @destinations = paginator.paginated
     @page = paginator.page
     @total_pages = paginator.total_pages
@@ -37,6 +37,14 @@ class DestinationsController < ApplicationController
         format.html { render :new, status: :unprocessable_entity }
       end
     end
+
+    rescue ActiveRecord::RecordNotUnique
+      @destination.errors.add(:name, "Ya existe un destino que representa el Honorable Consejo Directivo")
+
+      respond_to do |format|
+        format.turbo_stream { render :error_create }
+        format.html { render :new, status: :unprocessable_entity }
+      end
   end
 
   def update
@@ -52,9 +60,17 @@ class DestinationsController < ApplicationController
         format.html { render :new, status: :unprocessable_entity }
       end
     end
+    rescue ActiveRecord::RecordNotUnique
+      @destination.errors.add(:name, "Ya existe un destino que representa el Honorable Consejo Directivo")
+      
+      respond_to do |format|
+        format.turbo_stream { render :error_create }
+        format.html { render :new, status: :unprocessable_entity }
+      end
   end
 
   def destroy
+    @destination.is_hcd = false
     @destination.logic_delete
 
     flash.now[:info] = 'Destino eliminado correctamente'
@@ -84,7 +100,7 @@ class DestinationsController < ApplicationController
   end
 
   def daily_agenda_index
-    @destinations = Destination.actives.where.not(name: 'Honorable Consejo Directivo')
+    @destinations = Destination.actives.where.not(is_hcd: true)
 
     return unless params[:destination_id].present?
 
@@ -98,6 +114,11 @@ class DestinationsController < ApplicationController
   end
 
   def destination_params
-    params.require(:destination).permit(:name, :is_commission)
+    params.require(:destination).permit(:name, :is_commission, :is_hcd)
   end
+
+  def hcd?
+    return @destination.is_hcd
+  end
+
 end
