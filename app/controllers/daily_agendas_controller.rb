@@ -130,9 +130,6 @@ class DailyAgendasController < ApplicationController
     end
   end
 
-
-
-
   def add_expedients
     @daily_agenda = DailyAgenda.find(params[:id])
     @expedients = Expedient.for_destination(@daily_agenda.destination).by_subject_priority

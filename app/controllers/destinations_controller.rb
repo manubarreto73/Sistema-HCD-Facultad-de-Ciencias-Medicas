@@ -118,7 +118,7 @@ class DestinationsController < ApplicationController
   end
 
   def hcd?
-    return @destination.is_hcd
+    @destination.is_hcd
   end
 
 end

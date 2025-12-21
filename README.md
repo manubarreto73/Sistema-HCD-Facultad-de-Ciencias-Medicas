@@ -1,20 +1,12 @@
 # README
 
-## ¿Como arranco el proyecto?
+## Setup del proyecto (se necesita tener Docker instalado en la máquina)
+1. Ejecutar `docker compose up` para construir las imágenes de Docker con todas las dependencias del proyecto.
+2. Ejecutar `docker compose run web bin/rails db:prepare` para crear la base de datos, correr las migraciones y popular los datos.
+3. Ejecutar `docker compose up` para levantar la aplicación y sus servicios localmente (TO DO: Entorno productivo). Este paso quedará corriendo infinitamente hasta que se apague la computadora/servidor que lo corra o se haga un `CTRL C` sobre la consola y terminarlo. Nota: Actualmente quedará corriendo en `http://localhost:3000`
 
-- Tener instalado Ruby 3.2.2
-- Ejecutar `bundle install` para instalar las dependencias
-- Ejecutar `rails db:create db:migrate` para la creación de la base de datos y las migraciones.
-- Ejecutar `bin/dev` en una consola para levantar el servidor.
-
-## Frameworks más relevantes
-- Rails
-- Tailwind (estilos)
-- Devise (autenticación)
-- Wicked PDF (PDFs)
-
-## UPDATE: 24/11
-- Ejecutar en la consola `rails db:seed` para llenar la base de datos (se puede hacer con el servidor corriendo en otra consola, es indistinto).
-
-## UPDATE 14/11
-- Ejecutar `rails db:migrate db:seed` para actualizar la base de datos con las entidades nuevas y llenarla de destinos, temas, y expedientes.  
+## ¿Con qué está armado el sistema?
+- Lenguaje: Ruby.
+- Framework: Rails.
+- Base de datos: SQLite3.
+- Librerías de interés: WickedPDF, Tailwind, Turbo.

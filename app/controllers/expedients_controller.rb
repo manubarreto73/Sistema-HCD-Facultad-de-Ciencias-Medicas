@@ -93,24 +93,35 @@ class ExpedientsController < ApplicationController
   end
 
   def download_pdf
-  treated = params[:treated] == 'true'
+    treated = params[:treated] == 'true'
 
-  @expedients = Expedient
-                  .includes(:subject, :destination)
-                  .where(file_status: treated ? :treated : :no_treated)
-                  .order(:file_number)
+    @expedients = Expedient
+                    .includes(:subject, :destination)
+                    .where(file_status: treated ? :treated : :no_treated)
+                    .order(:file_number)
 
-  @title = treated ? 'Expedientes resueltos' : 'Expedientes no resueltos'
+    @title = treated ? 'Expedientes resueltos' : 'Expedientes no resueltos'
 
-  respond_to do |format|
-    format.pdf do
-      render pdf: @title.parameterize,
-       template: 'expedients/expedients_pdf',
-       layout: 'pdf',
-       encoding: 'UTF-8'
+    respond_to do |format|
+      format.pdf do
+        render pdf: @title.parameterize,
+        template: 'expedients/expedients_pdf',
+        layout: 'pdf',
+        encoding: 'UTF-8',
+        orientation: 'landscape',
+        margin: { top: 20, bottom: 10, left: 5, right: 5 },
+        header: {
+          html: { template: 'expedients/pdf/header',
+          layout: false }
+        },
+        footer: {
+          html: { template: 'expedients/pdf/footer',
+          layout: false,
+          spacing: 5 }
+        }
+      end
     end
   end
-end
 
   def treat_from_agenda
     @expedient.treated!
