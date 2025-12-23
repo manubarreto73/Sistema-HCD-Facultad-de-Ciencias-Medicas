@@ -16,6 +16,6 @@ class ExpedientsFilter
     result = result.where('creation_date >= ?', @params[:from_date]) if @params[:from_date].present?
     result = result.where('creation_date <= ?', @params[:to_date]) if @params[:to_date].present?
 
-    result
+    @params[:treated].to_s == 'true' ? result.treated : result.no_treated
   end
 end

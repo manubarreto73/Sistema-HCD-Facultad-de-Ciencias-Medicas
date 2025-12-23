@@ -2,14 +2,11 @@ class ExpedientsController < ApplicationController
   before_action :set_expedient, only: %i[edit show update destroy treat_from_agenda delete_from_agenda mark_as_treated_modal modal_delete history delete_from_agenda_modal]
 
   def index
-    index_params = filter_params
-    @expedients = ExpedientsFilter.new(Expedient.includes(:destination, :subject).all, index_params).call
+    @expedients = ExpedientsFilter.new(Expedient.includes(:destination, :subject).all, filter_params).call
 
     @treated_count = @expedients.treated.count
     @no_treated_count = @expedients.no_treated.count
 
-    @expedients =
-      params[:treated].to_s == 'true' ? @expedients.treated : @expedients.no_treated
     paginator = Paginator.new(@expedients.order(sort_order), page: params[:page])
     @expedients = paginator.paginated
     @page = paginator.page
@@ -94,13 +91,9 @@ class ExpedientsController < ApplicationController
 
   def download_pdf
     treated = params[:treated] == 'true'
+    @expedients = ExpedientsFilter.new(Expedient.includes(:destination, :subject).all, filter_params).call
 
-    @expedients = Expedient
-                    .includes(:subject, :destination)
-                    .where(file_status: treated ? :treated : :no_treated)
-                    .order(:file_number)
-
-    @title = treated ? 'Expedientes resueltos' : 'Expedientes no resueltos'
+    @title = treated ? 'Historial' : 'Expedientes no resueltos'
 
     respond_to do |format|
       format.pdf do
@@ -188,9 +181,7 @@ class ExpedientsController < ApplicationController
     render layout: false
   end
 
-  def history
-    puts 'hola?'
-  end
+  def history; end
 
   def deleted
     index_params = filter_params

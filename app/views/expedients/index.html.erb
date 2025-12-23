@@ -5,22 +5,8 @@
       <%= new_modal_button('Nuevo expediente', new_expedient_path) %>
     </div>
     <%= render 'filter' %>
-    <div class="flex justify-between mt-2">
-      <div class="flex space-x-2">
-        <%= tab_button(text: "No resueltos", count: @no_treated_count, path: pagination_params(treated: false)) %>
-        <%= tab_button(text: "Historial", count: @treated_count, path: pagination_params(treated: true)) %>
-      </div>
+    <%= render 'tabs' %>
 
-      <div class="flex space-x-2">
-        <%= link_to 'Expedientes eliminados', deleted_expedients_path, class: "px-4 py-2 rounded-t-md text-sm font-semibold transition bg-gray-100 text-gray-900 hover:bg-gray-200 cursor-pointer" %>
-        <%= download_pdf_button(
-      path: download_pdf_expedients_path(
-        request.query_parameters.merge(format: :pdf)
-      )
-    ) %>
- 
-      </div>
-    </div>
     <%= turbo_frame_tag "expedients_table" do %>
       <%= render "table", expedients: @expedients %>
       <div class="p-10">
