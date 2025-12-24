@@ -6,7 +6,7 @@ services:
       - "3000:3000"
     volumes:
       - .:/app
-      - ./db/development.sqlite3:/app/db/development.sqlite3
+      - ./db:/app/db
     environment:
       RAILS_ENV: development
     stdin_open: true

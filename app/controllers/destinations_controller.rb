@@ -1,12 +1,9 @@
 class DestinationsController < ApplicationController
   before_action :set_destination, only: %i[edit update destroy modal_delete]
 
-  def index
-    paginator = Paginator.new(Destination.actives.order(:name), page: params[:page], per_page: 9)
-    @destinations = paginator.paginated
-    @page = paginator.page
-    @total_pages = paginator.total_pages
-  end
+  before_action :paginate, only: [:index]
+
+  def index; end
 
   def new
     @destination = Destination.new
@@ -76,20 +73,11 @@ class DestinationsController < ApplicationController
     flash.now[:info] = 'Destino eliminado correctamente'
 
     @page = params[:page].to_i
-    paginator = Paginator.new(Destination.actives.order(:name), page: @page)
-
     @show_empty = Destination.actives.none?
-    @destinations = paginator.paginated
-    if @destinations.empty? && @page > 1
-      @page -= 1
-      paginator = Paginator.new(Destination.actives.order(:name), page: @page)
-      @destinations = paginator.paginated
-    end
-    @page = paginator.page
-    @total_pages = paginator.total_pages
+    paginate
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_to destinations_path(page: @current_page), status: :see_other }
+      format.html { redirect_to destinations_path(page: @page), status: :see_other }
     end
   end
 
@@ -121,4 +109,16 @@ class DestinationsController < ApplicationController
     @destination.is_hcd
   end
 
+  def paginate
+    paginator = Paginator.new(Destination.actives.order(:name), page: @page)
+
+    @destinations = paginator.paginated
+    if @destinations.empty? && @page > 1
+      @page -= 1
+      paginator = Paginator.new(Destination.actives.order(:name), page: @page)
+      @destinations = paginator.paginated
+    end
+    @page = paginator.page
+    @total_pages = paginator.total_pages
+  end
 end
