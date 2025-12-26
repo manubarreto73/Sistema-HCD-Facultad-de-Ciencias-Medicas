@@ -1,0 +1,22 @@
+<table style="width: 100%; border-collapse: collapse; table-layout: fixed;">
+  <tr>
+    <td rowspan="2" style="vertical-align: middle; text-align: left; width: 5%">
+      <%= wicked_pdf_image_tag 'logo_unlp.png', width: 50 %>
+    </td>
+
+    <td style="width: 60%; vertical-align: bottom; text-align: left; vertical-align: middle;">
+      <h2 style="margin: 0; padding-bottom: 5px;"><%= @daily_agenda.pdf_title %></h2>
+    </td>
+
+    <td style="width: 30%; vertical-align: middle; text-align: right;">
+      <h3 style="margin: 0;"><%= @daily_agenda.pdf_date %></h3>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="vertical-align: top; text-align: left;">
+      <p style="margin: 0;">UNLP - Facultad de Ciencias Médicas</p>
+    </td>
+  </tr>
+</table>
+<hr>

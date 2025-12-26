@@ -1,0 +1,5 @@
+@layer components {
+  .table-expedients { 
+    @apply w-full text-left border-collapse;
+  }
+}

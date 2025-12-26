@@ -1,0 +1,19 @@
+<%= form_with(model: subject, class: "element-form space-y-4 #{'animate-scale-in' if subject.errors.empty?}", data: { turbo_frame: "_top" }) do |f| %>
+  <%= hidden_field_tag :page, params[:page] %>
+  <div>
+    <%= f.label 'Nombre' %>
+    <%= f.text_field :name, class: "#{'input-errors' if subject.errors[:name].any? }" %>
+    <%= render 'form_errors', subject: subject if subject.errors[:name].any? %>
+  </div>
+
+  <div>
+    <%= f.label 'Prioridad', class: "block text-sm font-medium text-gray-700" %>
+    <%= f.number_field :priority %>
+  </div>
+
+  <div>
+    <%= close_modal_button %>
+    <%= f.submit (subject.new_record? ? "Crear tema" : "Actualizar tema"),
+      class: "form-button-submit" %>
+  </div>
+<% end %>

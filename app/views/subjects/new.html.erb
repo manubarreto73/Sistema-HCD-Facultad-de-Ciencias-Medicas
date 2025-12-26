@@ -1,0 +1,6 @@
+<%= render "shared/modal" do %>
+  <div class="modal-container">
+    <h2 class="modal-title">Nuevo tema</h2>
+    <%= render "form", subject: @subject, page: params[:page] %>
+  </div>
+<% end %>

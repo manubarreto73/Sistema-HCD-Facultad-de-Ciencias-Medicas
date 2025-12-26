@@ -1,0 +1,25 @@
+<div class="index-container">
+  <div class="index-background">
+    <div class="index-title-container">
+      <h2 class="text-2xl font-semibold text-gray-800">Ordenes de destino</h2>
+    </div>
+    <div class="flex justify-center mx-auto w-3/4 p-2">
+      <%= form_with url: daily_agenda_index_destinations_path, method: :get, class: "flex justify-between w-full gap-4 p-4 bg-white rounded-xl shadow-md " do |f| %>
+        <div class="flex flex-col w-3/4">
+          <%= f.label 'Elegir destino', class: "text-sm font-semibold text-gray-700 mb-1" %>
+          <%= f.select :destination_id,
+            options_from_collection_for_select(@destinations, :id, :select_name, params[:destination_id]),
+            placeholder: "Elegir destino",
+            class: "border min-h-12 shadow-md border-gray-300 rounded-lg px-3 py-2
+                    focus:ring-2 focus:ring-teal-500 focus:border-teal-500
+                    transition"
+          %>
+        </div>
+        <div class="flex flex-col">
+        <%= f.submit "Elegir", class: "bg-primary-color text-white font-semibold px-6 py-2 rounded-lg transition shadow-sm text-wrap" %>
+
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

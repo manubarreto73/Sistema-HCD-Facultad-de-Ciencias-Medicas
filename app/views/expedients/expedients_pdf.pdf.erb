@@ -1,0 +1,86 @@
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  thead tr {
+    background-color: #f5f5f5;
+  }
+
+  thead th {
+    padding: 8px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  tbody tr {
+    page-break-inside: avoid;
+    border-bottom: 1px solid #ccc;
+  }
+
+  tbody td {
+    padding: 8px;
+    vertical-align: top;
+  }
+
+  .col-number {
+    width: 20%;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .col-destination {
+    width: 20%;
+    text-align: center;
+  }
+
+  .col-detail {
+    text-align: left;
+  }
+
+  .col-responsible {
+    width: 15%;
+    text-align: center;
+  }
+</style>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Número</th>
+      <th>Destino</th>
+      <th>Detalle</th>
+      <th>Responsable</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @expedients.each do |expedient| %>
+      <tr>
+        <td class="col-number">
+          <%= expedient.file_number %>
+        </td>
+
+        <td class="col-destination">
+          <%= expedient.destination&.name %>
+        </td>
+
+        <td class="col-detail">
+          <%= expedient.detail %>
+        </td>
+
+        <td class="col-responsible">
+          <%= expedient.responsible %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

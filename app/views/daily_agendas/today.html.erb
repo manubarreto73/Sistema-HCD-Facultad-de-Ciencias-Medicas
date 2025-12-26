@@ -1,0 +1,75 @@
+<div class="index-container">
+  <div class="index-background">
+    <%= turbo_frame_tag 'today_daily_agenda_header' do %>
+      <div class="index-title-container justify-between">
+        <% if @daily_agenda.destination.present? %>
+          <div class="w-3/4">
+            <h2 class="text-2xl font-semibold text-gray-800">
+              <%= @daily_agenda.hcd? ? 'Orden del día' : 'Orden del destino ' %>
+              <%= @daily_agenda.destination.name %>
+              <%= ' correspondiente al ' %>
+              <%= @daily_agenda.date %>
+            </h2>
+          </div>
+
+          <div class="w-full flex justify-end space-x-2 flex-wrap">
+            <% if @daily_agenda.expedients.any? %>
+              <% if @daily_agenda.hcd? %>
+                <%= link_to 'Marcar como tratada',
+                            mark_as_treated_modal_daily_agenda_path(@daily_agenda),
+                            data: { turbo_frame: 'modal' },
+                            class: 'agenda-button bg-primary-color' %>
+              <% else %>
+                <%= link_to 'Marcar como tratada',
+                            destination_daily_agendas_treat_path(@daily_agenda),
+                            data: { turbo_frame: "_top" },
+                            class: 'agenda-button bg-primary-color' %>
+              <% end %>
+            <% end %>
+
+            <%= link_to 'Editar fecha',
+                        edit_daily_agenda_path(@daily_agenda),
+                        data: { turbo_frame: 'modal' },
+                        class: 'agenda-button bg-primary-color' %>
+
+            <%= link_to 'Ver ordenes tratadas',
+                        destination_daily_agendas_treated_path(@daily_agenda.destination.id),
+                        class: 'agenda-button bg-primary-color',
+                        data: { turbo: false } %>
+
+            <%= link_to 'Descargar orden del día',
+                        download_pdf_daily_agenda_path(@daily_agenda, format: :pdf),
+                        class: 'agenda-button bg-primary-color' %>
+          </div>
+        <% else %>
+          <div class="w-2/3">
+            <h2 class="text-2xl font-semibold text-gray-800">
+              No existe un destino marcado como HCD
+            </h2>
+          </div>
+        <% end %>
+      </div> <!-- cierre index-title-container -->
+
+      <% end %> <!-- cierre turbo_frame_tag today_daily_agenda_header -->
+
+      <div class="flex mt-2 mb-2 justify-between">
+        <div class="flex space-x-2 pr-2">
+        </div>
+
+        <div class="flex space-x-2 pr-2">
+          <%= link_to 'Agregar expedientes', add_expedients_daily_agenda_path(@daily_agenda), data: { turbo_frame: 'modal' }, class: 'agenda-button bg-primary-color' %>
+          <%= link_to 'Editar orden expedientes', edit_expedients_daily_agenda_path(@daily_agenda), data: { turbo_frame: '_top' }, class: 'agenda-button bg-primary-color' %>
+        </div>
+      </div>
+
+      <%= turbo_frame_tag "daily_agenda_expedients" do %>
+        <%= render "table", expedients: @daily_agenda_expedients %>
+        <div class="p-10">
+          <%= render "shared/pagination_daily_agenda", daily_agenda: @daily_agenda, page: @page, total_pages: @total_pages %>
+        </div>
+      <% end %>
+
+  </div> <!-- cierre index-background -->
+</div> <!-- cierre index-container -->
+
+<%= turbo_frame_tag "modal" %>

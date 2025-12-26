@@ -1,0 +1,56 @@
+<div class="index-container">
+  <div class="index-background">
+    <div class="index-title-container justify-between">
+      <div class="w-2/3">
+        <h2 class="text-2xl font-semibold text-gray-800">Tratar orden del día de <%= @daily_agenda.destination.name %></h2>
+        <h3 class="text-xl font-semibold text-gray-800">Actualizar destinos de los expedientes</h3>
+      </div>      
+    </div>
+    <%= form_with url: treat_destination_daily_agenda_path(@daily_agenda), method: :patch do %>
+
+    <table class="w-full text-left border-collapse border">
+      <thead class="border">
+        <tr class="border bg-gray-50 border-b border-gray-200 text-gray-700 text-sm uppercase">
+          <th class="border px-6 py-3 font-semibold w-1/2">Expediente</th>
+          <th class="border px-6 py-3 font-semibold text-center">Tratado</th>
+          <th class="border px-6 py-3 font-semibold text-center">Nuevo destino</th>
+        </tr>
+      </thead>
+
+      <tbody class="border divide-y divide-gray-100 text-gray-700">
+        <% @daily_agenda.expedients.each do |expedient| %>
+          <tr>
+            <td class="px-6 py-4 font-medium">
+              <%= expedient.file_number %>
+            </td>
+            <td class="px-6 py-4 font-medium text-center">
+              <%= check_box_tag "expedients[#{expedient.id}][file_status]", "1", false, expedient.file_status %>
+            </td>
+            <td class="px-6 py-4 font-medium text-center">
+              <%= select_tag "expedients[#{expedient.id}][destination_id]",
+                options_from_collection_for_select(
+                  @destinations,
+                  :id,
+                  :name,
+                  @daily_agenda.destination_id
+                ),
+                class: "border rounded px-2 py-1" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <div class="flex justify-between mt-2 p-4">
+      <div class="text-sm italic">
+        Se guardarán los expedientes marcados como resueltos.
+      </div>
+      <%= submit_tag "Tratar orden del día",
+        class: "bg-primary-color text-white px-4 py-2 rounded" %>
+    </div>
+
+    <% end %>
+
+    </div>
+  </div>
+</div>

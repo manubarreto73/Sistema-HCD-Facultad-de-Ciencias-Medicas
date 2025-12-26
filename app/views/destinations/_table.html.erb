@@ -1,0 +1,21 @@
+<table class="elements-table">
+  <thead>
+    <tr class="elements-header-tr">
+      <th>Nombre</th>
+      <th>Comisión</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody class="elements-body">
+    <% destinations.each do |destination| %>
+      <%= render "destination", destination: destination %>
+    <% end %>
+
+    <% if destinations.empty? %>
+      <tr>
+        <td class="p-6 font-medium">No hay destinos cargados aún</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

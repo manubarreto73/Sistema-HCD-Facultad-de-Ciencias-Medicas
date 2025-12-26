@@ -1,0 +1,33 @@
+<%= turbo_stream.update "modal", "" %>
+
+<%= turbo_stream.update 'today_daily_agenda_header' do %>
+
+    <div class="index-title-container justify-between">
+      <div class="w-2/3">
+        <h2 class="text-2xl font-semibold text-gray-800">Orden del día #<%= @daily_agenda.id %></h2>
+      </div>
+
+      <div  class="w-full flex justify-end space-x-2 flex-wrap">
+      <% if @daily_agenda.expedients.any? %>
+        <% if @daily_agenda.hcd? %>
+          <%= link_to 'Marcar como tratada', mark_as_treated_modal_daily_agenda_path(@daily_agenda), data: { turbo_frame: 'modal' }, class: 'agenda-button bg-primary-color' %>
+        <% else %>
+          <%= link_to 'Marcar como tratada', destination_daily_agendas_treat_path(@daily_agenda), data: { turbo_frame: "_top" }, class: 'agenda-button bg-primary-color' %>
+        <% end %>
+      <% end %>
+        <%= link_to 'Editar fecha', edit_daily_agenda_path(@daily_agenda), data: { turbo_frame: 'modal' }, class: 'agenda-button bg-primary-color' %>
+        <%= link_to 'Ver ordenes tratadas', destination_daily_agendas_treated_path(@daily_agenda.destination.id), class: 'agenda-button bg-primary-color', data: { turbo: false } %>
+        <%= link_to 'Descargar orden del día', download_pdf_daily_agenda_path(@daily_agenda, format: :pdf), class: 'agenda-button bg-primary-color' %>
+      </div>
+    </div>
+    <% end %>
+
+<%= turbo_stream.update "daily_agenda_expedients" do %>
+  <%= render "table", expedients: @daily_agenda_expedients %>
+  <div class="p-10">
+    <%= render "shared/pagination_daily_agenda", page: @page, total_pages: @total_pages, daily_agenda: @daily_agenda %>
+  </div>
+<% end %>
+
+<%= turbo_stream.update("flash-container", partial: "shared/flash") %>
+<% flash.discard %>

@@ -1,52 +1,89 @@
-<div class="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-  <div class="bg-white p-8 rounded-3xl shadow-xl w-full max-w-md">
-    <h2 class="text-2xl font-semibold text-gray-800 text-center mb-6">
+<div class="min-h-screen flex items-center justify-center bg-gray-200 px-4">
+  <div class="bg-white p-8 rounded-3xl shadow-xl w-full max-w-md border-t-4 primary-color border-primary">
+
+    <h2 class="text-2xl font-semibold text-gray-800 text-center mb-6 primary-color">
       Crear cuenta
     </h2>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), data: { turbo: false }) do |f| %>
-      <%= render "devise/shared/error_messages", resource: resource %>
 
       <div class="flex flex-col space-y-4">
 
         <div class="field">
-          <%= f.label :email, "Correo electrónico", class: "block text-sm font-medium text-gray-700 mb-1" %>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email",
-                class: "w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500" %>
+          <%= f.label :email, "Correo electrónico",
+                class: "block text-sm font-medium text-gray-700 mb-1 primary-color" %>
+
+          <%= f.email_field :email,
+                autofocus: true,
+                autocomplete: "email",
+                required: true,
+                class: "w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 #{'border-red-500' if resource.errors[:email].any?}" %>
+
+          <% resource.errors.full_messages_for(:email).each do |msg| %>
+            <p class="text-xs text-red-600 mt-1"><%= msg %></p>
+          <% end %>
         </div>
 
         <div class="field">
-          <%= f.label :name, "Nombre", class: "block text-sm font-medium text-gray-700 mb-1" %>
-          <%= f.text_field :name, autocomplete: "name",
-                class: "w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500" %>
+          <%= f.label :name, "Nombre",
+                class: "block text-sm font-medium text-gray-700 mb-1 primary-color" %>
+
+          <%= f.text_field :name,
+                autocomplete: "name",
+                required: true,
+                class: "w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 #{'border-red-500' if resource.errors[:name].any?}" %>
+
+          <% resource.errors.full_messages_for(:name).each do |msg| %>
+            <p class="text-xs text-red-600 mt-1"><%= msg %></p>
+          <% end %>
         </div>
 
         <div class="field">
-          <%= f.label :password, "Contraseña", class: "block text-sm font-medium text-gray-700 mb-1" %>
+          <%= f.label :password, "Contraseña",
+                class: "block text-sm font-medium text-gray-700 mb-1 primary-color" %>
+
           <% if @minimum_password_length %>
             <em class="text-xs text-gray-500">
               (<%= @minimum_password_length %> caracteres como mínimo)
             </em>
           <% end %>
-          <%= f.password_field :password, autocomplete: "new-password",
-                class: "w-full border border-gray-300 rounded-lg px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-gray-500" %>
+
+          <%= f.password_field :password,
+                autocomplete: "new-password",
+                required: true,
+                class: "w-full border rounded-lg px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-gray-500 #{'border-red-500' if resource.errors[:password].any?}" %>
+
+          <% resource.errors.full_messages_for(:password).each do |msg| %>
+            <p class="text-xs text-red-600 mt-1"><%= msg %></p>
+          <% end %>
         </div>
 
         <div class="field">
-          <%= f.label :password_confirmation, "Confirmar contraseña", class: "block text-sm font-medium text-gray-700 mb-1" %>
-          <%= f.password_field :password_confirmation, autocomplete: "new-password",
-                class: "w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500" %>
+          <%= f.label :password_confirmation, "Confirmar contraseña",
+                class: "block text-sm font-medium text-gray-700 mb-1 primary-color" %>
+
+          <%= f.password_field :password_confirmation,
+                autocomplete: "new-password",
+                required: true,
+                class: "w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 #{'border-red-500' if resource.errors[:password_confirmation].any?}" %>
+
+          <% resource.errors.full_messages_for(:password_confirmation).each do |msg| %>
+            <p class="text-xs text-red-600 mt-1"><%= msg %></p>
+          <% end %>
         </div>
 
-        <div class="actions">
+        <div class="actions primary-color">
           <%= f.submit "Registrarme",
-                class: "w-full bg-gray-800 text-white py-2 rounded-lg hover:bg-gray-700 transition font-medium cursor-pointer" %>
+                class: "w-full text-white py-2 rounded-lg transition font-medium cursor-pointer bg-primary-color" %>
         </div>
+
       </div>
     <% end %>
 
     <div class="mt-6 text-center text-sm text-gray-600 space-y-1">
       <%= render "devise/shared/links" %>
     </div>
+
   </div>
 </div>
+

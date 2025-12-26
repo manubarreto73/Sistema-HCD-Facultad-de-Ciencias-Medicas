@@ -1,0 +1,45 @@
+<div class="max-w-md mx-auto bg-white p-8 rounded-xl shadow">
+  <h2 class="text-2xl font-semibold mb-6 text-center">
+    Cambiar contraseña
+  </h2>
+
+  <%= form_with model: current_user,
+        url: password_change_path,
+        method: :patch do |f| %>
+
+    <%= render "shared/flash" %>
+
+    <div class="mb-4">
+      <%= f.label :password, "Nueva contraseña" %>
+      <%= f.password_field :password,
+          required: true,
+          class: "w-full border rounded p-2" %>
+      <p class="text-sm text-gray-500 mt-1">
+        Entre 8 y 16 caracteres, con al menos una letra y un número.
+      </p>
+    </div>
+
+    <div class="mb-6">
+      <%= f.label :password_confirmation, "Confirmar contraseña" %>
+      <%= f.password_field :password_confirmation,
+          required: true,
+          class: "w-full border rounded p-2" %>
+    </div>
+
+    <% if current_user.errors.any? %>
+      <div class="text-red-600 mb-4">
+        <ul>
+          <% current_user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="flex justify-end">
+      <%= f.submit "Actualizar contraseña",
+          class: "bg-teal-600 text-white px-6 py-2 rounded" %>
+    </div>
+
+  <% end %>
+</div>

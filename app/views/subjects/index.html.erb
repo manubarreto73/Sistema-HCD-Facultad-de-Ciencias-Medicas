@@ -1,0 +1,17 @@
+<div class="index-container">
+  <div class="index-background">
+    <div class="index-title-container">
+      <h2 class="elements-title">Temas</h2>
+      <%= new_modal_button('Nuevo tema', new_subject_path(page: params[:page])) %>
+    </div>
+
+    <%= turbo_frame_tag "subjects" do %>
+      <%= render "table", subjects: @subjects %>
+      <div class="p-10">
+        <%= render "shared/pagination_subjects", page: @page, total_pages: @total_pages %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= turbo_frame_tag "modal" %>

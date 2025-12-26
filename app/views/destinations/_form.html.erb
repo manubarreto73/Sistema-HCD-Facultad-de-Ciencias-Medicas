@@ -1,0 +1,23 @@
+<%= form_with(model: destination, class: "element-form space-y-4 #{'animate-scale-in' if destination.errors.empty?}", data: { turbo_frame: "_top" }) do |f| %>
+  <div>
+    <%= f.label 'Nombre' %> 
+    <%= f.text_field :name, class: "#{'input-errors' if destination.errors[:name].any? }", required: true %>
+    <%= render 'form_errors', destination: destination if destination.errors[:name].any? %>
+  </div>
+
+  <div class="flex space-x-2">
+    <%= f.check_box :is_commission, class: "h-4 w-4 text-gray-600 border-gray-300 rounded" %>
+    <%= f.label :is_commission, "¿Es comisión?", class: "text-sm text-gray-700" %>
+  </div>
+
+  <div class="flex space-x-2">
+    <%= f.check_box :is_hcd, class: "h-4 w-4 text-gray-600 border-gray-300 rounded" %>
+    <%= f.label :is_hcd, "¿Es el Honorable Consejo Directivo?", class: "text-sm text-gray-700" %>
+  </div>
+
+  <div>
+    <%= close_modal_button %>
+    <%= f.submit (destination.new_record? ? "Crear destino" : "Actualizar destino"),
+      class: 'form-button-submit' %>
+  </div>
+<% end %>

@@ -1,0 +1,10 @@
+<% if flash.any? %>
+  <% flash.each do |key, message| %>
+    <div 
+      data-controller="flash"
+      class="fixed bottom-4 right-4 px-4 py-3 rounded-lg shadow-lg text-white z-50
+             <%= key.to_sym == :notice ? "bg-green-600" : "bg-red-600" %>">
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>

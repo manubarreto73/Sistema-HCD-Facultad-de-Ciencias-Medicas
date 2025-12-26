@@ -1,0 +1,20 @@
+<table class="elements-table">
+  <thead>
+    <tr class="elements-header-tr">
+      <th>Nombre</th>
+      <th>Prioridad</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody id="subjects_index" class="elements-body">
+    <% if subjects.empty? %>
+      <tr>
+        <td class=" p-6 font-medium">No hay temas cargados aún</td>
+      </tr>
+    <% else %>
+      <% subjects.each do |subject| %>
+        <%= render 'subject', subject: subject %>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

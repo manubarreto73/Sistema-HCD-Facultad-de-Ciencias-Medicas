@@ -77,6 +77,8 @@ GEM
     benchmark (0.5.0)
     bigdecimal (3.3.1)
     builder (3.3.0)
+    byebug (12.0.0)
+    coderay (1.1.3)
     concurrent-ruby (1.3.5)
     connection_pool (2.5.4)
     crass (1.0.6)
@@ -90,6 +92,10 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    dotenv (3.2.0)
+    dotenv-rails (3.2.0)
+      dotenv (= 3.2.0)
+      railties (>= 6.1)
     drb (2.2.3)
     erb (5.1.3)
     erubi (1.13.1)
@@ -117,6 +123,7 @@ GEM
       net-pop
       net-smtp
     marcel (1.1.0)
+    method_source (1.1.0)
     mini_mime (1.1.5)
     minitest (5.26.0)
     net-imap (0.5.12)
@@ -129,23 +136,12 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.5)
-    nokogiri (1.18.10-aarch64-linux-gnu)
-      racc (~> 1.4)
-    nokogiri (1.18.10-aarch64-linux-musl)
-      racc (~> 1.4)
-    nokogiri (1.18.10-arm-linux-gnu)
-      racc (~> 1.4)
-    nokogiri (1.18.10-arm-linux-musl)
-      racc (~> 1.4)
-    nokogiri (1.18.10-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.18.10-x86_64-darwin)
+    nokogiri (1.18.10-x64-mingw-ucrt)
       racc (~> 1.4)
     nokogiri (1.18.10-x86_64-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.18.10-x86_64-linux-musl)
-      racc (~> 1.4)
     orm_adapter (0.5.0)
+    ostruct (0.6.3)
     pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
@@ -153,6 +149,12 @@ GEM
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
       rack
+    pry (0.15.2)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
+    pry-byebug (3.11.0)
+      byebug (~> 12.0)
+      pry (>= 0.13, < 0.16)
     psych (5.2.6)
       date
       stringio
@@ -208,18 +210,16 @@ GEM
       actionpack (>= 7.0)
       railties (>= 7.0)
     securerandom (0.4.1)
-    sqlite3 (2.8.0-aarch64-linux-gnu)
-    sqlite3 (2.8.0-aarch64-linux-musl)
-    sqlite3 (2.8.0-arm-linux-gnu)
-    sqlite3 (2.8.0-arm-linux-musl)
-    sqlite3 (2.8.0-arm64-darwin)
-    sqlite3 (2.8.0-x86_64-darwin)
+    sqlite3 (2.8.0-x64-mingw-ucrt)
     sqlite3 (2.8.0-x86_64-linux-gnu)
-    sqlite3 (2.8.0-x86_64-linux-musl)
+    stimulus-rails (1.3.4)
+      railties (>= 6.0.0)
     stringio (3.1.7)
     tailwindcss-rails (4.3.0)
       railties (>= 7.0.0)
       tailwindcss-ruby (~> 4.0)
+    tailwindcss-ruby (4.1.13)
+    tailwindcss-ruby (4.1.13-x64-mingw-ucrt)
     tailwindcss-ruby (4.1.13-x86_64-linux-gnu)
     thor (1.4.0)
     timeout (0.4.4)
@@ -229,6 +229,8 @@ GEM
       railties (>= 7.1.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    tzinfo-data (1.2025.2)
+      tzinfo (>= 1.0.0)
     uri (1.1.1)
     useragent (0.16.11)
     warden (1.2.9)
@@ -237,30 +239,32 @@ GEM
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    wicked_pdf (2.8.2)
+      activesupport
+      ostruct
+    wkhtmltopdf-binary (0.12.6.10)
     zeitwerk (2.7.3)
 
 PLATFORMS
-  aarch64-linux-gnu
-  aarch64-linux-musl
-  arm-linux-gnu
-  arm-linux-musl
-  arm64-darwin
-  x86_64-darwin
+  x64-mingw-ucrt
   x86_64-linux
-  x86_64-linux-gnu
-  x86_64-linux-musl
 
 DEPENDENCIES
   debug
   devise
+  dotenv-rails
   importmap-rails
   propshaft
+  pry-byebug
   puma (>= 5.0)
   rails (~> 8.0.4)
   sqlite3 (>= 2.1)
+  stimulus-rails
   tailwindcss-rails
   turbo-rails
   tzinfo-data
+  wicked_pdf
+  wkhtmltopdf-binary
 
 BUNDLED WITH
    2.7.2

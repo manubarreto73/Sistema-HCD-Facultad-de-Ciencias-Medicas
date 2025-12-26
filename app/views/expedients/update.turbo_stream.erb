@@ -1,0 +1,4 @@
+<%= turbo_stream.update "expedient_#{@expedient.id}", partial: "expedients/updated_expedient", locals: { expedient: @expedient } %>
+<%= turbo_stream.update "modal", "" %>
+<%= turbo_stream.update("flash-container", partial: "shared/flash") %>
+<% flash.discard %>

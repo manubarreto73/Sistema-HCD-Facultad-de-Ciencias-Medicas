@@ -1,0 +1,63 @@
+<div class="index-container">
+  <div class="index-background">
+    <div class="index-title-container">
+
+      <div class="flex flex-col justify-start w-full">
+        <div>
+          <%= link_to expedients_path, class: "flex items-center text-gray-600 hover:text-gray-800 font-medium" do %>
+            <span class="material-icons mr-1">< Volver</span>
+          <% end %>
+        </div>
+        
+        <div class="w-full flex justify-between">
+          <div>
+            <h2 class="text-2xl font-semibold text-gray-800">Expedientes eliminados</h2>
+          </div>
+          <%= form_with url: deleted_expedients_path, method: :get, class: "bg-white rounded-xl flex space-x-2" do |f| %>
+            <%= f.text_field :file_number,
+                value: params[:file_number],
+                placeholder: 'Número de expediente',
+                class: "w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-teal-500 focus:border-teal-500
+                    transition" %>
+            <%= f.submit "Buscar", class: "bg-teal-600 text-white font-semibold px-6 py-2 rounded-lg
+                    hover:bg-teal-700 transition shadow-sm" %>
+            <%= link_to 'Limpiar', deleted_expedients_path, class: "bg-gray-200 text-gray-700 font-semibold px-6 py-2 rounded-lg
+                  hover:bg-gray-300 transition" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <table class="w-full text-left border-collapse">
+      <thead>
+        <tr class="bg-gray-50 border-b border-gray-200 text-gray-700 text-sm uppercase">
+          <th class="px-6 py-3 font-semibold"> <%= sortable('file_number', 'Número') %> </th>
+          <th class="px-6 py-3 font-semibold text-center"> Fecha de eliminación </th>      
+          <th class="px-6 py-3 font-semibold text-center"> Responsable </th>      
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100 text-gray-700">
+        <% @expedients.map(&:deleted_info).each do |expedient| %>
+          <tr>
+            <td class="px-6 font-medium">
+              <%= expedient[:file_number] %>
+            </td>
+            <td class="text-center px-6 py-4 font-medium">
+              <%= expedient[:date] %>
+            </td>
+            <td class="text-center px-6 py-4 font-medium">
+              <%= expedient[:user] %>
+            </td>
+          </tr>
+        <% end %>
+        <% if @expedients.empty? %>
+          <tr>
+            <td class="p-6 font-medium">No hay expedientes eliminados aún</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="p-10">
+      <%= render "shared/pagination_deleted", page: @page, total_pages: @total_pages %>
+    </div>
+  </div>
+</div>

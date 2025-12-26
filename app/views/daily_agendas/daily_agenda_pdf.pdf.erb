@@ -1,0 +1,71 @@
+<style>
+  .expedients-pdf-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* CLAVE */
+    font-size: 16px;
+  }
+
+  .expedients-pdf-table td {
+    padding: 6px;
+    vertical-align: top;
+  }
+
+  .expedient-block {
+    margin-top: 50px;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .expedients-pdf-table tr {
+    page-break-inside: avoid !important;
+    page-break-after: auto;
+  }
+  .exp-number,
+  .position {
+    width: 19%;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .dato-3 {
+    width: 40%;
+    vertical-align: middle;
+    text-align: left;
+    font-weight: normal;
+  }
+
+  .dato-1,
+  .dato-2,
+  .description {
+    width: auto;
+  }
+  .description {
+    font-size: 15px;
+    width: 60%;
+  }
+  .dato-1,.dato-2 { font-weight: bold }
+  .dato-2 { text-align: center }
+</style>
+
+<table class="expedients-pdf-table">
+ <% @daily_agenda.expedients.ordered.each do |exp| %>
+    <div class="expedient-block" style="page-break-inside: avoid; margin-bottom: 10px; border-top: 1px solid">
+      <table class="expedients-pdf-table" >
+        <tr>
+          <td class="exp-number"><%= exp.file_number %></td>
+          <td class="dato-1"><%= exp.destination.name %> </td>
+          <td class="dato-2"><%= exp.subject.name %></td>
+        </tr>
+        <tr>
+          <td class="position"><%= exp.position %></td>
+          <td colspan="2" class="description">
+            <%= exp.detail %>
+          </td>
+          <td class="dato-3">asd</td>
+        </tr>
+      </table>
+    </div>
+  <% end %>
+</table>
+
