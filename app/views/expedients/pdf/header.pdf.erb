@@ -1,0 +1,25 @@
+
+<table style="width: 100%; border-collapse: collapse; table-layout: fixed;">
+  <tr>
+    <td rowspan="2" style="vertical-align: middle; text-align: left; width: 5%">
+      <%= wicked_pdf_image_tag 'logo_unlp.png', width: 50 %>
+    </td>
+
+    <td style="width: 60%; vertical-align: bottom; text-align: left; vertical-align: middle;">
+      <h2 style="margin: 0; padding-bottom: 5px;"><%= @title %></h2>
+    </td>
+
+    <td style="width: 30%; vertical-align: middle; text-align: right; font-size: 12px; color: gray">
+      <h3 style="margin: 0; font-weight: normal"> 
+        <p><%=  I18n.l(Time.current, format: "%A, %d de %B de %Y").capitalize %></p>
+      </h3>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="vertical-align: top; text-align: left; color: gray;">
+      <p style="margin: 0;">UNLP - Facultad de Ciencias Médicas</p>
+    </td>
+  </tr>
+</table>
+<hr>

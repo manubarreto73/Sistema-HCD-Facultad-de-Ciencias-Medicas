@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_12_19_010436) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_22_200103) do
   create_table "daily_agenda_expedient_histories", force: :cascade do |t|
     t.integer "daily_agenda_id", null: false
     t.integer "expedient_id", null: false
@@ -25,11 +25,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_19_010436) do
   end
 
   create_table "daily_agendas", force: :cascade do |t|
-    t.integer "number", default: 0
-    t.date "date", default: "2025-12-16", null: false
+    t.date "date", default: "2025-12-24", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "destination_id"
+    t.integer "number", default: 0, null: false
     t.index ["destination_id"], name: "index_daily_agendas_on_destination_id"
   end
 
@@ -37,10 +37,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_19_010436) do
     t.string "name", null: false
     t.boolean "is_commission", default: false, null: false
     t.boolean "active", default: true, null: false
+    t.boolean "is_hcd", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "is_hcd", null: false
-    t.integer "number_of_agendas", default: 1
+    t.integer "number_of_agendas", default: 1, null: false
     t.index ["is_hcd"], name: "unique_hcd_destination", unique: true, where: "is_hcd = true"
     t.index ["name"], name: "index_destinations_on_name", unique: true
   end

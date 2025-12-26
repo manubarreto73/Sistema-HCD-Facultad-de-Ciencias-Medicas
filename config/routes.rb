@@ -28,7 +28,6 @@ Rails.application.routes.draw do
 
   resources :expedients do
     member do
-      put :treat_from_agenda
       put :delete_from_agenda
       get :delete_from_agenda_modal
       get :mark_as_treated_modal

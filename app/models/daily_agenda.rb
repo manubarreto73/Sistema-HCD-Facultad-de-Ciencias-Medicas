@@ -40,7 +40,6 @@ class DailyAgenda < ApplicationRecord
   end
 
   def add_expedient!(expedient)
-    
     transaction do
       insert_position = calculate_position_for(expedient)
 
@@ -71,6 +70,16 @@ class DailyAgenda < ApplicationRecord
       .each_with_index do |expedient, index|
         expedient.update!(position: start_position + index)
       end
+  end
+
+  def pdf_date
+    I18n.l(date, format: "%A, %d de %B de %Y").capitalize
+  end
+
+  def pdf_title
+    text = hcd? ? 'Orden del día del consejo directivo' : "Orden del destino #{destination.name}"
+
+    text.upcase
   end
 
   private

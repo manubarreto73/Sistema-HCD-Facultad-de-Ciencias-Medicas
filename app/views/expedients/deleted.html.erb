@@ -36,7 +36,7 @@
         </tr>
       </thead>
       <tbody class="divide-y divide-gray-100 text-gray-700">
-        <% @expedients.each do |expedient| %>
+        <% @expedients.map(&:deleted_info).each do |expedient| %>
           <tr>
             <td class="px-6 font-medium">
               <%= expedient[:file_number] %>

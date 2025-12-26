@@ -1,32 +1,85 @@
-<h1><%= @title %></h1>
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-top: 10px;
+  }
 
-<p>
-  Fecha de emisión: <%= Time.current.strftime('%d/%m/%Y') %>
-</p>
+  thead {
+    display: table-header-group;
+  }
 
-<table border="1" cellspacing="0" cellpadding="5" width="100%">
+  thead tr {
+    background-color: #f5f5f5;
+  }
+
+  thead th {
+    padding: 8px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  tbody tr {
+    page-break-inside: avoid;
+    border-bottom: 1px solid #ccc;
+  }
+
+  tbody td {
+    padding: 8px;
+    vertical-align: top;
+  }
+
+  .col-number {
+    width: 20%;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .col-destination {
+    width: 20%;
+    text-align: center;
+  }
+
+  .col-detail {
+    text-align: left;
+  }
+
+  .col-responsible {
+    width: 15%;
+    text-align: center;
+  }
+</style>
+
+
+<table>
   <thead>
     <tr>
       <th>Número</th>
-      <th>Tema</th>
       <th>Destino</th>
+      <th>Detalle</th>
       <th>Responsable</th>
-      <th>Estado</th>
-      <th>Fecha creación</th>
-      <th>Fecha tratado</th>
     </tr>
   </thead>
 
   <tbody>
     <% @expedients.each do |expedient| %>
       <tr>
-        <td><%= expedient.file_number %></td>
-        <td><%= expedient.subject&.name %></td>
-        <td><%= expedient.destination&.name %></td>
-        <td><%= expedient.responsible %></td>
-        <td><%= expedient.status %></td>
-        <td><%= expedient.creation_date&.strftime('%d/%m/%Y') %></td>
-        <td><%= expedient.treat_date&.strftime('%d/%m/%Y') %></td>
+        <td class="col-number">
+          <%= expedient.file_number %>
+        </td>
+
+        <td class="col-destination">
+          <%= expedient.destination&.name %>
+        </td>
+
+        <td class="col-detail">
+          <%= expedient.detail %>
+        </td>
+
+        <td class="col-responsible">
+          <%= expedient.responsible %>
+        </td>
       </tr>
     <% end %>
   </tbody>

@@ -96,7 +96,8 @@ class DailyAgendasController < ApplicationController
   end
 
   def download_pdf
-  @title = "Orden del día #{@daily_agenda.date.strftime('%d/%m/%Y')}"
+    subtitle = @daily_agenda.hcd? ? 'día' : "destino #{@daily_agenda.destination.name}"
+  @title = "Orden del #{subtitle} #{@daily_agenda.date.strftime('%d/%m/%Y')}"
 
   @no_treated = @daily_agenda.expedients
                              .includes(:subject, :destination)
@@ -108,18 +109,26 @@ class DailyAgendasController < ApplicationController
                           .treated
                           .order(:position)
 
-  respond_to do |format|
-    format.pdf do
-      render pdf: @title.parameterize,
-             template: 'daily_agendas/daily_agenda_pdf',
-             layout: 'pdf',
-             encoding: 'UTF-8'
+    respond_to do |format|
+      format.pdf do
+        render pdf: @title.parameterize,
+              template: 'daily_agendas/daily_agenda_pdf',
+              layout: 'pdf',
+              encoding: 'UTF-8',
+              orientation: 'landscape',
+              margin: { top: 20, bottom: 20, left: 5, right: 5 },
+              header: {
+                html: { template: 'daily_agendas/pdf/header',
+                layout: false }
+              },
+              footer: {
+                html: { template: 'daily_agendas/pdf/footer',
+                layout: false,
+                spacing: 5 }
+              }
+      end
     end
   end
-end
-
-
-
 
   def add_expedients
     @daily_agenda = DailyAgenda.find(params[:id])

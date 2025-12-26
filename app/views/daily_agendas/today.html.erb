@@ -3,7 +3,7 @@
     <%= turbo_frame_tag 'today_daily_agenda_header' do %>
       <div class="index-title-container justify-between">
         <% if @daily_agenda.destination.present? %>
-          <div class="w-2/3">
+          <div class="w-3/4">
             <h2 class="text-2xl font-semibold text-gray-800">
               <%= @daily_agenda.hcd? ? 'Orden del día' : 'Orden del destino ' %>
               <%= @daily_agenda.destination.name %>
