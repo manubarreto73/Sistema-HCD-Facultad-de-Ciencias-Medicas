@@ -1,6 +1,5 @@
 FROM ruby:3.2.2
 
-# Evita prompts raros
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Dependencias del sistema
@@ -21,8 +20,8 @@ RUN bundle install
 # Código
 COPY . .
 
-# Precompila tailwind (en dev no rompe, en prod suma)
-RUN bundle exec rails tailwindcss:build || true
+# Precompila tailwind
+RUN bin/rails tailwindcss:build
 
 # Puerto Rails
 EXPOSE 3000
